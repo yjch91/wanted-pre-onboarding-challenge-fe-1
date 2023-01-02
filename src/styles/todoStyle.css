@@ -1,0 +1,29 @@
+.todo {
+    width: 300px;
+    display: inline-block;
+}
+
+.todoBasis {
+    flex-basis: 33.3%;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex {
+    display: flex;
+}
+
+.cursorPointer {
+    cursor: pointer;
+}
+
+.right {
+    color: 'blue',
+}
+
+.size {
+    width: 400px;
+}
