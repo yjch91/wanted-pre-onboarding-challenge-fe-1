@@ -1,4 +1,4 @@
-export interface todo {
+export interface ITodo {
     title: string,
 	content: string,
 	readonly id: string,
@@ -6,17 +6,22 @@ export interface todo {
 	readonly updatedAt: string,
 }
 
-export interface todos {
-    data: todo[],
+export interface ITodos {
+    data: ITodo[],
 }
 
-export interface createTodoParams {
+export interface ICreateTodoParams {
     title: string,
 	content: string,
 }
 
-export interface updateTodoParams {
+export interface IUpdateTodoParams {
     title: string,
 	content: string,
 	id: string,
+}
+
+export interface ITodoCheckModalProps {
+    setIsOpenModal: Function;
+    setIsAgree: Function;
 }

@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "react-query";
 import { AUTHORIZATION_HEADER, CONTENT_TYPE, CONTENT_TYPE_HEADER, LOGIN_TOKEN } from "../../constants/token";
-import { createTodoParams, updateTodoParams } from "../../types/todo";
+import { ICreateTodoParams, IUpdateTodoParams } from "../../types/todo";
 
-const createTodo = async ({title, content}: createTodoParams) => {
+const createTodo = async ({title, content}: ICreateTodoParams) => {
     const res = await fetch("http://localhost:8080/todos", {
         method: "POST",
         headers: {
@@ -54,7 +54,7 @@ export const useRemoveTodoMutation = () => {
     });
 } 
 
-const updateTodo = async ({title, content, id}: updateTodoParams) => {
+const updateTodo = async ({title, content, id}: IUpdateTodoParams) => {
     const res = await fetch("http://localhost:8080/todos/" + id, {
         method : "PUT",
         headers: {

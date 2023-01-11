@@ -1,25 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRemoveTodoMutation } from '../../hooks/mutation/todo';
 import { useGetTodosQuery } from '../../hooks/query/todo';
-import { todo, todos } from '../../types/todo';
+import { ITodo, ITodos } from '../../types/todo';
+import RemoveTodoModal from './TodoCheckModal';
 
 function TodoList() {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const { id } = useParams();
+    const [isOpenRemoveModal, setIsOpenRemoveModal] = useState(false);
+    const [isRemove, setIsRemove] = useState(false);
+    const [removeTodoId, setRemoveTodoId] = useState("");
+    
+    const todos: ITodos = useGetTodosQuery();
     const { mutate: removeTodoMutate } = useRemoveTodoMutation();
 
-    const todos: todos = useGetTodosQuery();
+    useEffect(() => {
+        if (isRemove === true)
+        {
+            setIsRemove(false);
+            removeTodoMutate(removeTodoId);
+            if (removeTodoId === id)
+                navigate("/");
+        }
+    // eslint-disable-next-line
+    }, [isRemove])
 
     const onClickRemoveTodo = (todoId: string) => {
-        removeTodoMutate(todoId);
-        if (id === todoId)
-            navigate("/");
+        setIsOpenRemoveModal(true);
+        setRemoveTodoId(todoId);
     }
 
-    const todoList = todos && todos.data.map((todo: todo, index: number) => {
+    const todoList = todos && todos.data.map((todo: ITodo, index: number) => {
         return (
             <div key={index}>
                 <div className="todo cursorPointer" onClick={() => {
@@ -37,6 +51,7 @@ function TodoList() {
     return (
         <>
             {todoList}
+            { isOpenRemoveModal && <RemoveTodoModal setIsAgree={setIsRemove} setIsOpenModal={setIsOpenRemoveModal}/> }
         </>
     );
 

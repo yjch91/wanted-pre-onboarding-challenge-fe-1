@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCreateTodoMutation } from '../../hooks/mutation/todo';
-import { createTodoParams } from '../../types/todo';
+import { ICreateTodoParams } from '../../types/todo';
 import TodoDetail from './TodoDetail';
 import TodoList from './TodoList';
 
@@ -18,10 +18,14 @@ function MainPage() {
         navigate("/auth/login");
     }
 
-    const onClickCreateTodo = ({title, content}: createTodoParams) => {
-        createTodoMutate({title, content});
-        setTitle(""); 
-        setContent("");
+    const onClickCreateTodo = ({title, content}: ICreateTodoParams) => {
+        if (title === "")
+            alert("title이 비어있습니다.")
+        else{
+            createTodoMutate({title, content});
+            setTitle(""); 
+            setContent("");
+        }
     }
     
     return (

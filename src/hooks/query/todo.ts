@@ -1,6 +1,5 @@
 import { useQuery } from "react-query";
 import { AUTHORIZATION_HEADER, CONTENT_TYPE, CONTENT_TYPE_HEADER, LOGIN_TOKEN } from "../../constants/token";
-import { todo } from "../../types/todo";
 
 const getTodos = async () => {
     const res = await fetch("http://localhost:8080/todos", {

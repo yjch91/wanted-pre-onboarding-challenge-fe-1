@@ -27,3 +27,27 @@
 .size {
     width: 400px;
 }
+
+.modal {
+    width: 300px;
+    height: 150px;
+    background-color: #555555;
+    left: 50%;
+    top: 50%;
+    position: relative;
+    transform : translate(-50%, -50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 0.5rem;
+    
+}
+
+.modalBackGround {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
