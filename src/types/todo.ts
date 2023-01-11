@@ -10,6 +10,10 @@ export interface ITodos {
     data: ITodo[],
 }
 
+export interface ITodoListItemProps {
+	todo: ITodo,
+}
+
 export interface ICreateTodoParams {
     title: string,
 	content: string,
