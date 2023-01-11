@@ -1,19 +1,19 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LoginPage from './components/LoginPage';
-import MainPage from './components/MainPage';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { BrowserRouter } from "react-router-dom";
+import Router from './components/Router';
 import "./styles/todoStyle.css";
 
 function App() {
+
+  const queryClient = new QueryClient();
   
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/:id" element={<MainPage />} />
-        <Route path="/auth" element={<LoginPage />} />
-      </Routes>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 }
 
