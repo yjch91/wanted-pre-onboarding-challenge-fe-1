@@ -41,9 +41,11 @@ function MainPage() {
             <div>
                 <button onClick={() => onClickCreateTodo({title, content})}>추가</button>
             </div>
+            <br />
             <div className="flex">
                 <div className="size">
                     <div>TodoList (title)</div>
+                    <br />
                     <div className="flex-col">
                         <TodoList />
                     </div>

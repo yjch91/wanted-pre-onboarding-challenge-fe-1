@@ -1,35 +1,54 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { EMAIL_REGEXP } from '../../constants';
 import { useSignUpMutation } from '../../hooks/mutation/auth';
-
-const emailRegExp: RegExp = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+.[a-zA-Z]+$/;
+import { IUserInfo } from '../../types/auth';
 
 function SignUp() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [isValid, setIsValid] = useState(false);
     const navigate = useNavigate();
     const { mutate: signUpMutate } = useSignUpMutation();
+    const { 
+        register, 
+        handleSubmit, 
+        formState: { isValid, errors }
+    } = useForm({ defaultValues: {
+        email: "",
+        password: "",
+    }});
     
-    useEffect(() => {
-        if (emailRegExp.test(email) && password.length >= 8)
-            setIsValid(true);
-        else
-            setIsValid(false);
-    }, [navigate, email, password])
-
     return (
-        <div>
+        <form onSubmit={handleSubmit(({email, password}: IUserInfo) => {
+            signUpMutate({email, password});
+        })}>
             <div>회원가입</div>
-            <div>
-                이메일&nbsp;&nbsp;&nbsp; <input className="todo" type="text" name="signup_mail" onChange={(e) => setEmail(e.target.value)}></input>
-            </div>
-            <div>
-                패스워드 <input className="todo" type="password" name="signup_password" onChange={(e) => setPassword(e.target.value)}></input>
-            </div>
-            <button disabled={!isValid} onClick={() => signUpMutate({email, password})}>가입</button>
-            <button onClick={() => navigate("/auth/login")}>로그인 화면</button>
-        </div>
+            이메일&nbsp;&nbsp;&nbsp;
+            <input {...register("email", {
+                required: {
+                    value: true,
+                    message: "이메일이 비어있습니다."
+                },
+                pattern: {
+                    value: EMAIL_REGEXP,
+                    message: "이메일 형식에 맞게 입력해야합니다."
+                }
+            })} className="todo" type="text" placeholder='email' />
+            <p>{errors.email?.message}</p>
+            패스워드
+            <input {...register("password", {
+                required: {
+                    value: true,
+                    message: "비밀번호가 비어있습니다."
+                },
+                minLength: {
+                    value: 8,
+                    message: "비밀번호는 8자이상 이어야합니다."
+                }
+            })} className="todo" type="password" placeholder='password'/>
+            <p>{errors.password?.message}</p>
+            <input disabled={!isValid} type="submit" value="가입" />
+            <button type="button" onClick={() => navigate("/auth/login")}>취소</button>
+        </form>
     );
 }
 

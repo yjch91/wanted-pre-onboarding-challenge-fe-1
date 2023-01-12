@@ -1,21 +1,15 @@
-import React, { ComponentType, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { LOGIN_TOKEN } from '../../constants/token';
+import React, { ComponentType } from 'react';
+import { Navigate } from 'react-router-dom';
+import { LOGIN_TOKEN } from '../../constants';
 
 
-function AuthCheckHoc(AuthComponent: ComponentType) {
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (localStorage.getItem(LOGIN_TOKEN) === null)
-            navigate("/auth/login");
-    }, [navigate])
+function AuthCheckHoc(PageComponent: ComponentType) {
 
     return () => {
         if (localStorage.getItem(LOGIN_TOKEN) === null)
-            return <></>;
-        
-        return <AuthComponent />;
+            return <Navigate to="/auth/login" />;
+
+        return <PageComponent />;
     }
 }
 

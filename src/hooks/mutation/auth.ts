@@ -1,6 +1,6 @@
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { CONTENT_TYPE, CONTENT_TYPE_HEADER, LOGIN_TOKEN } from "../../constants/token";
+import { CONTENT_TYPE, CONTENT_TYPE_HEADER, LOGIN_TOKEN } from "../../constants";
 import { IUserInfo } from "../../types/auth";
 
 const createUser = async ({email, password}: IUserInfo) => {
@@ -27,6 +27,7 @@ export const useSignUpMutation = () => {
                 alert(res.details);
             else {
                 navigate("/auth/login");
+                alert("회원가입이 되었습니다.");
             }
         },
         onError: (error) => {

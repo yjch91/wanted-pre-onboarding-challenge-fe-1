@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "react-query";
-import { AUTHORIZATION_HEADER, CONTENT_TYPE, CONTENT_TYPE_HEADER, LOGIN_TOKEN } from "../../constants/token";
+import { AUTHORIZATION_HEADER, CONTENT_TYPE, CONTENT_TYPE_HEADER, LOGIN_TOKEN } from "../../constants";
 import { ICreateTodoParams, IUpdateTodoParams } from "../../types/todo";
 
 const createTodo = async ({title, content}: ICreateTodoParams) => {
