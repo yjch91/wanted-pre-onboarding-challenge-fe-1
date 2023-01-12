@@ -36,7 +36,7 @@ function TodoListItem({todo}: ITodoListItemProps) {
             <button className="removeBtn" onClick={() => setIsOpenRemoveModal(true)}> X </button>
             { isOpenRemoveModal && <RemoveTodoModal setIsAgree={setIsRemove} setIsOpenModal={setIsOpenRemoveModal}/> }
         </div>
-    )
+    );
 }
 
 export default TodoListItem;

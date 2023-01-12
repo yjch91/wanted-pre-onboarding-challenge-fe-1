@@ -18,7 +18,7 @@ function TodoCheckModal({setIsAgree, setIsOpenModal}: ITodoCheckModalProps) {
                 </span>
             </div>
         </div>
-    )
+    );
 }
 
 export default TodoCheckModal;

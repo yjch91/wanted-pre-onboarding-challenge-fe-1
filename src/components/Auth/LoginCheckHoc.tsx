@@ -5,12 +5,12 @@ import { LOGIN_TOKEN } from '../../constants';
 
 function LoginCheckHoc(CheckComponent: ComponentType) {
 
-    return () => {
+    return (() => {
         if (!!localStorage.getItem(LOGIN_TOKEN))
             return <Navigate to="/"></Navigate>;
 
         return <CheckComponent />;
-    }
+    });
 }
 
 export default LoginCheckHoc;

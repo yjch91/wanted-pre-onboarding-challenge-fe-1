@@ -1,9 +1,9 @@
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { CONTENT_TYPE, CONTENT_TYPE_HEADER, LOGIN_TOKEN } from "../../constants";
-import { IUserInfo } from "../../types/auth";
+import { ILoginParams, ISignUpParams } from "../../types/auth";
 
-const createUser = async ({email, password}: IUserInfo) => {
+const signUpUser = async ({email, password}: ISignUpParams) => {
     const res = await fetch("http://localhost:8080/users/create", {
         method: "POST",
         headers: {
@@ -21,7 +21,7 @@ export const useSignUpMutation = () => {
     
     const navigate = useNavigate();
 
-    return useMutation(createUser, {
+    return useMutation(signUpUser, {
         onSuccess: (res) => {
             if (res?.details)
                 alert(res.details);
@@ -33,9 +33,10 @@ export const useSignUpMutation = () => {
         onError: (error) => {
             alert(error);
         }
-})};
+    });
+};
 
-const loginUser = async ({email, password}: IUserInfo) => {
+const loginUser = async ({email, password}: ILoginParams) => {
     const res = await fetch("http://localhost:8080/users/login", {
         method : "POST",
         headers: {

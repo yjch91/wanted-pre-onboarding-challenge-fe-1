@@ -1,26 +1,40 @@
 import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUpdateTodoMutation } from '../../hooks/mutation/todo';
 import { useGetTodosByIdQuery } from '../../hooks/query/todo';
-import { ITodo  } from '../../types/todo';
+import { ITodo, IUpdateTodoParams  } from '../../types/todo';
 import TodoCheckModal from './TodoCheckModal';
 
 function TodoDetail() {
-    const [title, setTitle] = useState("")
-    const [content, setContent] = useState("");
-    const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
-    const [isUpdate, setIsUpdate] = useState(false);
+    const {
+        register,
+        handleSubmit,
+        watch,
+        setValue,
+        formState: {errors}
+    } = useForm<IUpdateTodoParams>({
+        defaultValues: {
+            title: "",
+            content: "",
+        }
+    });
 
     const navigate = useNavigate();
     const { id } = useParams();
     const todoById: ITodo = useGetTodosByIdQuery(id)?.data;
+
+    const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
+    const [isUpdate, setIsUpdate] = useState(false);
+    
+    const updateTodoSubmit = () => setIsOpenUpdateModal(true);
     const { mutate: updateTodoMutate } = useUpdateTodoMutation();
 
     useEffect(() => {
         if (todoById)
         {
-            setTitle(todoById.title);
-            setContent(todoById.content);
+            setValue("title", todoById.title);
+            setValue("content", todoById.content);
         }
     }, [todoById])
 
@@ -28,26 +42,27 @@ function TodoDetail() {
         if (isUpdate === true)
         {
             setIsUpdate(false);
-            updateTodoMutate({title, content, id: todoById.id});
+            updateTodoMutate({title: watch("title"), content: watch("content"), id: todoById.id});
         }
     // eslint-disable-next-line
     }, [isUpdate])
 
     return (
-        <div className="right">
-            <div>Detail</div>
-            <div>
-                <input className="todo" type="text" name="title" value={title} placeholder="title" onChange={(e) => setTitle(e.target.value)}></input>
-            </div>
-            <div>
-                <input className="todo" type="text" name="content" value={content} placeholder="content" onChange={(e) => setContent(e.target.value)}></input>
-            </div>
-            <button onClick={() => setIsOpenUpdateModal(true)}>수정</button>
-            <button onClick={() => {navigate("/");}}>닫기</button>
-            <button onClick={() => {navigate(-1)}}>뒤로가기</button>
+        <form onSubmit={handleSubmit(updateTodoSubmit)}>
+            <div>TodoDetail</div>
+            <br />
+            <input {...register("title",  {
+                required: "제목이 비어있습니다."
+            })} className="todo" type="text" placeholder="title" />
+            <p>{errors.title?.message}</p>
+            <input {...register("content")} className="todo" type="text" placeholder="content" />
+            <br />
+            <input type="submit" value="수정" />
+            <button type="button" onClick={() => {navigate("/");}}>닫기</button>
+            <button type="button" onClick={() => {navigate(-1)}}>뒤로가기</button>
             { isOpenUpdateModal && <TodoCheckModal setIsAgree={setIsUpdate} setIsOpenModal={setIsOpenUpdateModal}/> }
-        </div>
-    )
+        </form>
+    );
 }
 
 export default TodoDetail;

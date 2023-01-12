@@ -14,6 +14,11 @@ export interface ITodoListItemProps {
 	todo: ITodo,
 }
 
+export interface ICreateTodoForm {
+    title: string,
+	content: string,
+}
+
 export interface ICreateTodoParams {
     title: string,
 	content: string,
@@ -26,6 +31,6 @@ export interface IUpdateTodoParams {
 }
 
 export interface ITodoCheckModalProps {
-    setIsOpenModal: Function;
-    setIsAgree: Function;
+    setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsAgree: React.Dispatch<React.SetStateAction<boolean>>;
 }
