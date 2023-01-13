@@ -13,8 +13,12 @@ const createTodo = async ({title, content}: ICreateTodoParams) => {
             title,
             content
         })
-    });
-    return await res.json();
+    }).then((res) => {
+        if (!res.ok)
+            throw new Error("Todo 추가에 실패하였습니다.");
+        return res.json();
+    })
+    return res;
 }
 
 export const useCreateTodoMutation = () => {
@@ -25,7 +29,8 @@ export const useCreateTodoMutation = () => {
             queryClient.invalidateQueries("todos");
         },
         onError: (error) => {
-            alert(error);
+            if (error instanceof Error)
+                alert(error.message);
         }
     });
 }
@@ -37,8 +42,12 @@ const removeTodo = async (id: string) => {
                 [CONTENT_TYPE_HEADER]: CONTENT_TYPE,
                 [AUTHORIZATION_HEADER]: localStorage.getItem(LOGIN_TOKEN) || ''
             },
+    }).then((res) => {
+        if (!res.ok)
+            throw new Error("Todo 삭제에 실패하였습니다.");
+        return res.json();
     })
-    return await res.json();
+    return res;
 }
 
 export const useRemoveTodoMutation = () => {
@@ -49,7 +58,8 @@ export const useRemoveTodoMutation = () => {
             queryClient.invalidateQueries("todos");
         },
         onError: (error) => {
-            alert(error);
+            if (error instanceof Error)
+                alert(error.message);
         }
     });
 } 
@@ -65,8 +75,12 @@ const updateTodo = async ({title, content, id}: IUpdateTodoParams) => {
             title,
             content
         })
+    }).then((res) => {
+        if (!res.ok)
+            throw new Error("Todo 업데이트에 실패하였습니다.");
+        return res.json();
     })
-    return await res.json();
+    return res;
 }
 
 export const useUpdateTodoMutation = () => {
@@ -77,7 +91,8 @@ export const useUpdateTodoMutation = () => {
             queryClient.invalidateQueries("todos");
         },
         onError: (error) => {
-            alert(error);
+            if (error instanceof Error)
+                alert(error.message);
         }
     });
 } 

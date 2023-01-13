@@ -13,25 +13,25 @@ const signUpUser = async ({email, password}: ISignUpParams) => {
             email,
             password
         })
+    }).then((res) => {
+        if (!res.ok)
+            throw new Error("이미 존재하는 유저입니다.");
+        return res.json();
     })
-    return await res.json();
+    return res;
 }
 
 export const useSignUpMutation = () => {
-    
     const navigate = useNavigate();
 
     return useMutation(signUpUser, {
-        onSuccess: (res) => {
-            if (res?.details)
-                alert(res.details);
-            else {
-                navigate("/auth/login");
-                alert("회원가입이 되었습니다.");
-            }
+        onSuccess: () => {
+            navigate("/auth/login");
+            alert("회원가입이 되었습니다.");
         },
         onError: (error) => {
-            alert(error);
+            if (error instanceof Error)
+                alert(error.message);
         }
     });
 };
@@ -46,8 +46,12 @@ const loginUser = async ({email, password}: ILoginParams) => {
             email,
             password
         })
+    }).then((res) => {
+        if (!res.ok)
+            throw new Error("로그인에 실패하였습니다.");
+        return res.json();
     })
-    return await res.json();
+    return res;
 }
 
 export const useLoginMutation = () => {
@@ -55,15 +59,12 @@ export const useLoginMutation = () => {
 
     return useMutation(loginUser, {
         onSuccess: (res) => {
-            if (res?.details)
-                alert(res.details);
-            else {
-                localStorage.setItem(LOGIN_TOKEN, res.token);
-                navigate("/");
-            }
+            localStorage.setItem(LOGIN_TOKEN, res.token);
+            navigate("/");
         },
         onError: (error) => {
-            alert(error);
+            if (error instanceof Error)
+                alert(error.message);
         }
     });
 };

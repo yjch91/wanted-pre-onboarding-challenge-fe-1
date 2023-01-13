@@ -8,14 +8,19 @@ const getTodos = async () => {
             [CONTENT_TYPE_HEADER]: CONTENT_TYPE,
             [AUTHORIZATION_HEADER]: localStorage.getItem(LOGIN_TOKEN) || ''
         },
-    });
-    return await res.json();
+    }).then((res) => {
+        if (!res.ok)
+            throw new Error("Todos를 가져오는데 실패하였습니다.")
+        return res.json();
+    })
+    return res;
 }
     
 export const useGetTodosQuery = () => {
     const { data } = useQuery('todos', getTodos,{
         onError: (error) => {
-            alert(error);
+            if (error instanceof Error)
+                alert(error.message);
         }
     });
 
@@ -33,15 +38,19 @@ const getTodoById = async (todoId: string | undefined) => {
             [CONTENT_TYPE_HEADER]: CONTENT_TYPE,
             [AUTHORIZATION_HEADER]: localStorage.getItem(LOGIN_TOKEN) || ''
         },
+    }).then((res) => {
+        if (!res.ok)
+            throw new Error("TodoById를 가져오는데 실패하였습니다.")
+        return res.json();
     })
-    
-    return await res.json();
+    return res;    
 }
 
 export const useGetTodosByIdQuery = (id: string | undefined) => {
     const { data } = useQuery(["todosId", id], ({queryKey}) => getTodoById(queryKey[1]), {
         onError: (error) => {
-            alert(error);
+            if (error instanceof Error)
+                alert(error.message);
         }
     });
     
