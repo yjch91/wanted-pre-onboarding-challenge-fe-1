@@ -19,13 +19,7 @@ function MainPage() {
             <CreateTodo />
             <br />
             <div className="flex">
-                <div className="size">
-                    <div>TodoList (title)</div>
-                    <br />
-                    <div className="flex-col">
-                        <TodoList />
-                    </div>
-                </div>
+                <TodoList />
                 {id && <TodoDetail />}
             </div>
         </div>

@@ -1,7 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useCreateTodoMutation } from '../../hooks/mutation/todo';
-import { ICreateTodoForm, ICreateTodoParams } from '../../types/todo';
+import { ITodoForm, ICreateTodoParams } from '../../types/todo';
+import ContentInput from './Input/Content';
+import TitleInput from './Input/Title';
 
 function CreateTodo() {
     const {
@@ -9,7 +11,7 @@ function CreateTodo() {
         handleSubmit,
         resetField,
         formState: {errors}
-    } = useForm<ICreateTodoForm>({
+    } = useForm<ITodoForm>({
         defaultValues: {
             title: "",
             content: "",
@@ -27,11 +29,8 @@ function CreateTodo() {
     return (
         <form onSubmit={handleSubmit(createTodoSubmit)}>
             <div>CreateTodo</div>
-            <input {...register("title",  {
-                required: "제목이 비어있습니다."
-            })} className="todo" type="text" placeholder="title" />
-            <p>{errors.title?.message}</p>
-            <input {...register("content")} className="todo" type="text" placeholder="content" />
+            <TitleInput register={register} errors={errors} />
+            <ContentInput register={register} />
             <br />
             <input type="submit" value="추가" />
         </form>

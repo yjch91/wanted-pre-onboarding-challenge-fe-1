@@ -1,3 +1,5 @@
+import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
+
 export interface ITodo {
     title: string,
 	content: string,
@@ -14,7 +16,7 @@ export interface ITodoListItemProps {
 	todo: ITodo,
 }
 
-export interface ICreateTodoForm {
+export interface ITodoForm {
     title: string,
 	content: string,
 }
@@ -33,4 +35,16 @@ export interface IUpdateTodoParams {
 export interface ITodoCheckModalProps {
     setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
     setIsAgree: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface ITitleInputProps {
+    register: UseFormRegister<ITodoForm>;
+    errors: Partial<FieldErrorsImpl<{
+        title: string;
+        content: string;
+    }>>;
+}
+
+export interface IContentInputProps {
+    register: UseFormRegister<ITodoForm>;
 }

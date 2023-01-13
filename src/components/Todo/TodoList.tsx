@@ -13,9 +13,13 @@ function TodoList() {
     });
 
     return (
-        <>
-            {todoList}
-        </>
+        <div className="size">
+            <div>TodoList (title)</div>
+            <br />
+            <div className="flex-col">
+                {todoList}
+            </div>
+        </div>
     );
 
 }

@@ -3,7 +3,9 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUpdateTodoMutation } from '../../hooks/mutation/todo';
 import { useGetTodosByIdQuery } from '../../hooks/query/todo';
-import { ITodo, IUpdateTodoParams  } from '../../types/todo';
+import { ITodo, ITodoForm  } from '../../types/todo';
+import ContentInput from './Input/Content';
+import TitleInput from './Input/Title';
 import TodoCheckModal from './TodoCheckModal';
 
 function TodoDetail() {
@@ -13,7 +15,7 @@ function TodoDetail() {
         watch,
         setValue,
         formState: {errors}
-    } = useForm<IUpdateTodoParams>({
+    } = useForm<ITodoForm>({
         defaultValues: {
             title: "",
             content: "",
@@ -51,11 +53,8 @@ function TodoDetail() {
         <form onSubmit={handleSubmit(updateTodoSubmit)}>
             <div>TodoDetail</div>
             <br />
-            <input {...register("title",  {
-                required: "제목이 비어있습니다."
-            })} className="todo" type="text" placeholder="title" />
-            <p>{errors.title?.message}</p>
-            <input {...register("content")} className="todo" type="text" placeholder="content" />
+            <TitleInput register={register} errors={errors} />
+            <ContentInput register={register} />
             <br />
             <input type="submit" value="수정" />
             <button type="button" onClick={() => {navigate("/");}}>닫기</button>
