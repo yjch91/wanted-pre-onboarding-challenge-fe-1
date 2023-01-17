@@ -5,6 +5,7 @@ import { useLoginMutation } from '../../hooks/mutation/auth';
 import { ILoginParams, ISignForm } from '../../types/auth';
 import EmailInput from './Input/Email';
 import PasswordInput from './Input/Password';
+import { Button } from './styled';
 
 function Login() {
     const { 
@@ -25,15 +26,19 @@ function Login() {
     };
 
     return (
-        <form onSubmit={handleSubmit(loginSubmit)}>
-            <div>로그인</div>
-            <EmailInput register={register} errors={errors} />
-            <PasswordInput register={register} errors={errors} />
-            <input type="submit" value="로그인" disabled={!isValid} />
-            <button type="button" onClick={() => {
-                navigate("/auth/signUp")
-            }}>회원가입</button>
-        </form>
+        <div className="signFormContainer">
+            <form className="signForm p-16" onSubmit={handleSubmit(loginSubmit)}>
+                <div className="fontSize-2 textCenter">로그인</div>
+                <EmailInput register={register} errors={errors} />
+                <PasswordInput register={register} errors={errors} />
+                <div className="textCenter">
+                    <Button type="submit" disabled={!isValid}>로그인</Button>
+                    <Button type="button" onClick={() => {
+                        navigate("/auth/signUp")
+                    }}>회원가입</Button>
+                </div>
+            </form>
+        </div>
     );
 }
 

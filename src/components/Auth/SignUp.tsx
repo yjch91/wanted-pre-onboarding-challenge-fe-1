@@ -6,6 +6,7 @@ import { ISignForm, ISignUpParams } from '../../types/auth';
 import ConfirmPasswordInput from './Input/ConfirmPassword';
 import EmailInput from './Input/Email';
 import PasswordInput from './Input/Password';
+import { Button } from './styled';
 
 function SignUp() {
     const { 
@@ -28,14 +29,19 @@ function SignUp() {
     }
     
     return (
-        <form onSubmit={handleSubmit(signUpSubmit)}>
-            <div>회원가입</div>
-            <EmailInput register={register} errors={errors} />
-            <PasswordInput register={register} errors={errors} />
-            <ConfirmPasswordInput register={register} watch={watch} errors={errors} />
-            <input disabled={!isValid} type="submit" value="가입" />
-            <button type="button" onClick={() => navigate("/auth/login")}>취소</button>
-        </form>
+        <div className="signFormContainer">
+            <form className="signForm p-16" onSubmit={handleSubmit(signUpSubmit)}>
+                <div className="fontSize-2 textCenter">회원가입</div>
+                <EmailInput register={register} errors={errors} />
+                <PasswordInput register={register} errors={errors} />
+                <ConfirmPasswordInput register={register} watch={watch} errors={errors} />
+                <div className="textCenter">
+                    <Button disabled={!isValid} type="submit">가입</Button>
+                    <Button type="button" onClick={() => navigate("/auth/login")}>취소</Button>
+                </div>
+            </form>
+        </div>
+
     );
 }
 

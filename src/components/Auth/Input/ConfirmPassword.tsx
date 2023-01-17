@@ -6,12 +6,12 @@ function ConfirmPasswordInput({register, watch, errors}: IPasswordInputProps) {
         return <></>;
     return (
         <>
-            패스워드확인<br />
+            <div className="fontSize-1_5 mb4">패스워드확인</div>
             <input {...register("confirmPassword", {
                 validate: {
                     value: (value) => watch("password") === value || "비밀번호가 일치하지 않습니다."
                 }
-            })} className="todo" type="password" />
+            })} className="inputSize fontSize-1_5 p-8" type="password" placeholder='password'/>
             <p>{errors.confirmPassword?.message}</p>
         </>
     );
