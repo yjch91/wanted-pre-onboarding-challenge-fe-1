@@ -7,6 +7,9 @@ import EmailInput from './Input/Email';
 import PasswordInput from './Input/Password';
 import { Button } from './styled';
 
+// 로그인 페이지 css 스타일 해주기
+// 로그인 errors 메시지 한쪽에 몰아주기
+
 function Login() {
     const { 
         register, 
@@ -28,7 +31,7 @@ function Login() {
     return (
         <div className="signFormContainer">
             <form className="signForm p-16" onSubmit={handleSubmit(loginSubmit)}>
-                <div className="fontSize-2 textCenter">로그인</div>
+                <div className="fontSize-2 textCenter mb-4">로그인</div>
                 <EmailInput register={register} errors={errors} />
                 <PasswordInput register={register} errors={errors} />
                 <div className="textCenter">

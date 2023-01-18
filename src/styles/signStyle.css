@@ -22,6 +22,10 @@
     font-size: 1.5rem;
 }
 
+.fontSize-1_25 {
+    font-size: 1.25rem;
+}
+
 .fontSize-2 {
     font-size: 2.0rem;
 }
@@ -38,6 +42,14 @@
     padding: 16px;
 }
 
-.mb4 {
+.mb-4 {
     margin-bottom: 4px;
+}
+
+.m-4 {
+    margin: 4px;
+}
+
+.red {
+    color: red;
 }

@@ -5,7 +5,6 @@ import { IEmailInputProps } from '../../../types/auth';
 function EmailInput({register, errors}: IEmailInputProps) {
     return (
         <>
-            <div className="fontSize-1_5 mb4">이메일</div>
             <input {...register("email", {
                 required: "이메일이 비어있습니다.",
                 pattern: {
@@ -16,9 +15,9 @@ function EmailInput({register, errors}: IEmailInputProps) {
                     value: 30,
                     message: "이메일 30자이하 여야합니다."
                 }
-            })} className="inputSize fontSize-1_5 p-8" type="text" placeholder='email'
+            })} className="inputSize fontSize-1_25 p-8 mb-4" type="text" placeholder='이메일'
             />
-            <p>{errors.email?.message}</p>
+            <p className="m-4 red">{errors.email?.message}</p>
         </>
     );
 }

@@ -31,7 +31,7 @@ function SignUp() {
     return (
         <div className="signFormContainer">
             <form className="signForm p-16" onSubmit={handleSubmit(signUpSubmit)}>
-                <div className="fontSize-2 textCenter">회원가입</div>
+                <div className="fontSize-2 textCenter mb-4">회원가입</div>
                 <EmailInput register={register} errors={errors} />
                 <PasswordInput register={register} errors={errors} />
                 <ConfirmPasswordInput register={register} watch={watch} errors={errors} />
