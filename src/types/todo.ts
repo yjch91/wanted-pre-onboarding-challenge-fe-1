@@ -32,11 +32,6 @@ export interface IUpdateTodoParams {
 	id: string,
 }
 
-export interface ITodoCheckModalProps {
-    setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-    setIsAgree: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
 export interface ITitleInputProps {
     register: UseFormRegister<ITodoForm>;
     errors: Partial<FieldErrorsImpl<{

@@ -1,14 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../hooks/mutation/auth';
 import { ILoginParams, ISignForm } from '../../types/auth';
+import ErrorModal from '../Common/ErrorModal';
 import EmailInput from './Input/Email';
 import PasswordInput from './Input/Password';
 import { Button } from './styled';
-
-// 로그인 페이지 css 스타일 해주기
-// 로그인 errors 메시지 한쪽에 몰아주기
 
 function Login() {
     const { 
@@ -23,10 +21,16 @@ function Login() {
         mode: 'onChange'
     });
     const navigate = useNavigate();
-    const { mutate: loginMutate } = useLoginMutation();
+    const { mutate: loginMutate, isError, error } = useLoginMutation();
     const loginSubmit = ({email, password}: ILoginParams) => {
         loginMutate({email, password});
     };
+    const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
+
+    useEffect(() => {
+        if (isError)
+            setIsOpenErrorModal(isError);
+    }, [isError])
 
     return (
         <div className="signFormContainer">
@@ -41,6 +45,7 @@ function Login() {
                     }}>회원가입</Button>
                 </div>
             </form>
+            { isOpenErrorModal && error instanceof Error ? <ErrorModal error={error} setIsOpenErrorModal={setIsOpenErrorModal} /> : <></> }
         </div>
     );
 }
