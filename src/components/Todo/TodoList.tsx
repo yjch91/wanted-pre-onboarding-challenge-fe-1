@@ -23,7 +23,7 @@ function TodoList() {
                 <Button onClick={() => setOpenCreateTodo(true)}>+</Button>
             </p>
             <ul className="todoList left m-4">
-                {todos.data.length > 0 ? todoList : <div>todo가 비어있습니다.</div>}
+                { todos && todos.data.length > 0 ? todoList : <div>todolist가 비어있습니다.</div> }
             </ul>
             { openCreateTodo && <CreateTodo setOpenCreateTodo={setOpenCreateTodo}/> }
         </div>
