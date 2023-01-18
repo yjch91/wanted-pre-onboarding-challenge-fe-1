@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { CONTENT_TYPE, CONTENT_TYPE_HEADER, LOGIN_TOKEN } from "../../constants";
 import { ILoginParams, ISignUpParams } from "../../types/auth";
 
-const signUpUser = async ({email, password}: ISignUpParams) => {
-    const res = await fetch("http://localhost:8080/users/create", {
+const signUpUser = ({email, password}: ISignUpParams) => {
+    const res = fetch("http://localhost:8080/users/create", {
         method: "POST",
         headers: {
             [CONTENT_TYPE_HEADER]: CONTENT_TYPE
@@ -31,8 +31,8 @@ export const useSignUpMutation = () => {
     });
 };
 
-const loginUser = async ({email, password}: ILoginParams) => {
-    const res = await fetch("http://localhost:8080/users/login", {
+const loginUser = ({email, password}: ILoginParams) => {
+    const res = fetch("http://localhost:8080/users/login", {
         method : "POST",
         headers: {
             [CONTENT_TYPE_HEADER]: CONTENT_TYPE

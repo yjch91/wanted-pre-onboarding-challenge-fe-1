@@ -11,6 +11,8 @@ function Router() {
   const LoginPage = LoginCheckHoc(Login);
   const SignUpPage = LoginCheckHoc(SignUp)
   
+  
+
   return (
     <Routes>
       <Route path="/auth/login" element={<LoginPage />} />

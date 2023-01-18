@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useUpdateTodoMutation } from '../../hooks/mutation/todo';
 import { useGetTodosByIdQuery } from '../../hooks/query/todo';
 import { ITodo, ITodoForm  } from '../../types/todo';
+import { Button } from '../Auth/styled';
 import ContentInput from './Input/Content';
 import TitleInput from './Input/Title';
 import TodoCheckModal from './TodoCheckModal';
@@ -50,17 +51,20 @@ function TodoDetail() {
     }, [isUpdate])
 
     return (
-        <form onSubmit={handleSubmit(updateTodoSubmit)}>
-            <div>TodoDetail</div>
-            <br />
-            <TitleInput register={register} errors={errors} />
-            <ContentInput register={register} />
-            <br />
-            <input type="submit" value="수정" />
-            <button type="button" onClick={() => {navigate("/");}}>닫기</button>
-            <button type="button" onClick={() => {navigate(-1)}}>뒤로가기</button>
-            { isOpenUpdateModal && <TodoCheckModal setIsAgree={setIsUpdate} setIsOpenModal={setIsOpenUpdateModal}/> }
-        </form>
+        <div className="flexBasis50">
+            <form onSubmit={handleSubmit(updateTodoSubmit)}>
+                <p className="todoDetailTitle">
+                    <span>- TODO DETAIL -</span>
+                    <Button type="submit">수정</Button>
+                    <Button type="button" onClick={() => {navigate("/");}}>닫기</Button>
+                </p>
+                <div className="todoDetail left m-4">
+                    <TitleInput register={register} watch={watch} errors={errors} />
+                    <ContentInput register={register} watch={watch}/>
+                </div>
+                { isOpenUpdateModal && <TodoCheckModal setIsAgree={setIsUpdate} setIsOpenModal={setIsOpenUpdateModal}/> }
+            </form>
+        </div>
     );
 }
 

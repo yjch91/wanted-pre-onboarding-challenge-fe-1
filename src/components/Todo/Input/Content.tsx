@@ -1,9 +1,13 @@
+import { watch } from 'fs';
 import React from 'react';
 import { IContentInputProps } from '../../../types/todo';
 
-function ContentInput({register}: IContentInputProps) {
+function ContentInput({register, watch}: IContentInputProps) {
     return (
-        <input {...register("content")} className="todo" type="text" placeholder="content" />
+        <>
+            <textarea {...register("content")} className="inputContent" placeholder="content" maxLength={1000} />
+            <p className="textright m-4">{watch("content").length}/1000</p>
+        </>
     );
 }
 
