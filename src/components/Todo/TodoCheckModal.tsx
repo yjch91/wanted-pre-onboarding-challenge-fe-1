@@ -1,5 +1,5 @@
 import React from 'react';
-import { ITodoCheckModalProps } from '../../types/todo';
+import { ITodoCheckModalProps } from '../../types/modal';
 
 function TodoCheckModal({setIsAgree, setIsOpenModal}: ITodoCheckModalProps) {
     

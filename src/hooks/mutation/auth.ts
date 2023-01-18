@@ -27,12 +27,7 @@ export const useSignUpMutation = () => {
     return useMutation(signUpUser, {
         onSuccess: () => {
             navigate("/auth/login");
-            alert("회원가입이 되었습니다.");
         },
-        onError: (error) => {
-            if (error instanceof Error)
-                alert(error.message);
-        }
     });
 };
 
@@ -62,9 +57,5 @@ export const useLoginMutation = () => {
             localStorage.setItem(LOGIN_TOKEN, res.token);
             navigate("/");
         },
-        onError: (error) => {
-            if (error instanceof Error)
-                alert(error.message);
-        }
     });
 };

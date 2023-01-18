@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useSignUpMutation } from '../../hooks/mutation/auth';
 import { ISignForm, ISignUpParams } from '../../types/auth';
+import ErrorModal from '../Common/ErrorModal';
 import ConfirmPasswordInput from './Input/ConfirmPassword';
 import EmailInput from './Input/Email';
 import PasswordInput from './Input/Password';
@@ -23,11 +24,17 @@ function SignUp() {
         mode: 'onChange'
     });
     const navigate = useNavigate();
-    const { mutate: signUpMutate } = useSignUpMutation();
+    const { mutate: signUpMutate, isError, error } = useSignUpMutation();
     const signUpSubmit = ({email, password}: ISignUpParams) => {
         signUpMutate({email, password});
     }
-    
+    const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
+
+    useEffect(() => {
+        if (isError)
+            setIsOpenErrorModal(isError);
+    }, [isError])
+
     return (
         <div className="signFormContainer">
             <form className="signForm p-16" onSubmit={handleSubmit(signUpSubmit)}>
@@ -40,6 +47,7 @@ function SignUp() {
                     <Button type="button" onClick={() => navigate("/auth/login")}>취소</Button>
                 </div>
             </form>
+            { isOpenErrorModal && error instanceof Error ? <ErrorModal error={error} setIsOpenErrorModal={setIsOpenErrorModal} /> : <></> }
         </div>
 
     );
