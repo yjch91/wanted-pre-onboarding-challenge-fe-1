@@ -1,4 +1,4 @@
-import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
+import { UseFormRegister, FieldErrorsImpl, UseFormWatch } from "react-hook-form";
 
 export interface ITodo {
     title: string,
@@ -34,6 +34,7 @@ export interface IUpdateTodoParams {
 
 export interface ITitleInputProps {
     register: UseFormRegister<ITodoForm>;
+    watch: UseFormWatch<ITodoForm>;
     errors: Partial<FieldErrorsImpl<{
         title: string;
         content: string;
@@ -42,4 +43,5 @@ export interface ITitleInputProps {
 
 export interface IContentInputProps {
     register: UseFormRegister<ITodoForm>;
+    watch: UseFormWatch<ITodoForm>;
 }

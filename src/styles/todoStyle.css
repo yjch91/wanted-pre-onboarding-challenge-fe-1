@@ -1,15 +1,93 @@
 .todo {
-    width: 300px;
     display: inline-block;
+    color: black;
+    border: 1px solid black;
+    width: 90%;
+    border-radius: 1rem;
+    background-color: aquamarine;
+    text-align: left;
+}
+
+.inputTitle {
+    border: 1px solid black;
+    border-radius: 1rem;
+    background-color: aquamarine;
+    font-size: 1.2rem;
+    width: calc(90% - 16px);
+    line-height: 2;
+    margin: 4px;
+}
+
+textarea, input {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.inputContent {
+    border: 1px solid black;
+    border-radius: 1rem;
+    background-color: aquamarine;
+    font-size: 1.2rem;
+    width: calc(90% - 16px);
+    height: 450px;
+    line-height: 1.5;
+    padding-top: 10px;
+    margin: 4px;
+}
+
+.todoListTitle {
+    text-align: center;
+    width: calc(100% - 16px);
+    margin: 4px;
+}
+
+.todoDetailTitle {
+    text-align: center;
+    width: calc(100% - 16px);
+    margin: 4px;
+}
+
+.todoList {
+    list-style: none;
+    padding-left: 0px;
+    width: calc(100% - 16px);
+    overflow: scroll;
+    height: 80vh;
+    border: 1px solid aquamarine;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+.todoDetail {
+    width: calc(100% - 16px);
+    border-radius: 0.5rem;
+    border: 1px solid aquamarine;
+    text-align: center;
 }
 
 .todoBasis {
-    flex-basis: 33.3%;
+    flex-basis: 50%;
 }
 
 .flex-col {
     display: flex;
     flex-direction: column;
+}
+
+
+.block {
+    display: block;
+}
+
+.left {
+    float: left;
+}
+
+.textleft {
+    text-align: left;
+}
+
+.textright {
+    text-align: right;
 }
 
 .flex {
@@ -22,6 +100,13 @@
 
 .size {
     width: 400px;
+}
+
+.todoTitle {
+    font-size: 1.2rem;
+    width: calc(100% - 60px);
+    margin: 4px 8px;
+    overflow: hidden;
 }
 
 .modal {
@@ -47,4 +132,20 @@
     left: 0;
     top: 0;
     background-color: rgba(245, 245, 220, 0.7);
+}
+
+.createTodo {
+    width: 50%;
+    left: 50%;
+    top: 50%;
+    position: relative;
+    transform : translate(-50%, -50%);
+    text-align: center;
+    border-radius: 0.5rem;
+    border: 2px solid black;
+    background-color: antiquewhite;
+}
+
+.flexBasis50 {
+    flex-basis: 50%;
 }

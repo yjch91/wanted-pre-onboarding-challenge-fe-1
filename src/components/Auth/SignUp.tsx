@@ -24,7 +24,7 @@ function SignUp() {
         mode: 'onChange'
     });
     const navigate = useNavigate();
-    const { mutate: signUpMutate, isError, error } = useSignUpMutation();
+    const { mutate: signUpMutate, isLoading, isError, error } = useSignUpMutation();
     const signUpSubmit = ({email, password}: ISignUpParams) => {
         signUpMutate({email, password});
     }
@@ -36,6 +36,7 @@ function SignUp() {
     }, [isError])
 
     return (
+        isLoading ? <div>SingUp...</div> :
         <div className="signFormContainer">
             <form className="signForm p-16" onSubmit={handleSubmit(signUpSubmit)}>
                 <div className="fontSize-2 textCenter mb-4">회원가입</div>

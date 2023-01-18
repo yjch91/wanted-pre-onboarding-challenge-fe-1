@@ -21,18 +21,18 @@ function Login() {
         mode: 'onChange'
     });
     const navigate = useNavigate();
-    const { mutate: loginMutate, isError, error } = useLoginMutation();
+    const { mutate: loginMutate, isLoading, isError, error } = useLoginMutation();
     const loginSubmit = ({email, password}: ILoginParams) => {
         loginMutate({email, password});
     };
     const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
-
     useEffect(() => {
         if (isError)
             setIsOpenErrorModal(isError);
     }, [isError])
 
     return (
+        isLoading ? <div>Login...</div> :
         <div className="signFormContainer">
             <form className="signForm p-16" onSubmit={handleSubmit(loginSubmit)}>
                 <div className="fontSize-2 textCenter mb-4">로그인</div>

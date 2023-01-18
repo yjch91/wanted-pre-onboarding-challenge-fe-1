@@ -14,8 +14,8 @@ const createTodo = async ({title, content}: ICreateTodoParams) => {
             content
         })
     }).then((res) => {
-        if (!res.ok)
-            throw new Error("Todo 추가에 실패하였습니다.");
+        //if (!res.ok)
+        //    throw new Error("Todo 추가에 실패하였습니다.");
         return res.json();
     })
     return res;
@@ -25,7 +25,8 @@ export const useCreateTodoMutation = () => {
     const queryClient = useQueryClient();
 
     return useMutation(createTodo, {
-        onSuccess: () => {
+        onSuccess: (res) => {
+            console.log(res);
             queryClient.invalidateQueries("todos");
         },
         onError: (error) => {

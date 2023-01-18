@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useCreateTodoMutation } from '../../hooks/mutation/todo';
 import { ITodoForm, ICreateTodoParams } from '../../types/todo';
+import { Button } from '../Auth/styled';
 import ContentInput from './Input/Content';
 import TitleInput from './Input/Title';
+import TodoCheckModal from './TodoCheckModal';
 
-function CreateTodo() {
+interface CreateTodoProps {
+    setOpenCreateTodo: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function CreateTodo({setOpenCreateTodo}: CreateTodoProps) {
     const {
         register,
         handleSubmit,
         resetField,
+        watch,
         formState: {errors}
     } = useForm<ITodoForm>({
         defaultValues: {
@@ -17,23 +24,37 @@ function CreateTodo() {
             content: "",
         },
     });
-  
+
+    const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
+    const [isCreate, setIsCreate] = useState(false);
+
     const { mutate: createTodoMutate } = useCreateTodoMutation();
 
-    const createTodoSubmit = ({title, content}: ICreateTodoParams) => {
-        createTodoMutate({title, content});
-        resetField("title");
-        resetField("content");
-    }
+    const createTodoSubmit = () => setIsOpenCreateModal(true);
+
+    useEffect(() => {
+        if (isCreate === true)
+        {
+            setIsCreate(false);
+            createTodoMutate({title: watch("title"), content: watch("content")});
+            resetField("title");
+            resetField("content");
+            setOpenCreateTodo(false);
+        }
+    // eslint-disable-next-line
+    }, [isCreate])
 
     return (
-        <form onSubmit={handleSubmit(createTodoSubmit)}>
-            <div>CreateTodo</div>
-            <TitleInput register={register} errors={errors} />
-            <ContentInput register={register} />
-            <br />
-            <input type="submit" value="추가" />
-        </form>
+        <div className="modalBackGround">
+            <form className="createTodo" onSubmit={handleSubmit(createTodoSubmit)}>
+                <div>- CREATE TODO -</div>
+                <TitleInput register={register} watch={watch} errors={errors} />
+                <ContentInput register={register} watch={watch}/>
+                <Button type="submit">추가</Button>
+                <Button type="button" onClick={() => setOpenCreateTodo(false)}>취소</Button>
+            </form>
+            { isOpenCreateModal && <TodoCheckModal setIsAgree={setIsCreate} setIsOpenModal={setIsOpenCreateModal}/> }
+        </div>
     );
 }
 

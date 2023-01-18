@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGetTodosQuery } from '../../hooks/query/todo';
 import { ITodo, ITodos } from '../../types/todo';
+import { Button } from '../Auth/styled';
+import CreateTodo from './CreateTodo';
 import TodoListItem from './TodoListItem';
 
 function TodoList() {    
@@ -12,13 +14,18 @@ function TodoList() {
         );
     });
 
+    const [openCreateTodo, setOpenCreateTodo] = useState(false);
+
     return (
-        <div className="size">
-            <div>TodoList (title)</div>
-            <br />
-            <div className="flex-col">
+        <div className="flexBasis50">
+            <p className="todoListTitle">
+                <span>- TODO LIST -</span>
+                <Button onClick={() => setOpenCreateTodo(true)}>+</Button>
+            </p>
+            <ul className="todoList left m-4">
                 {todoList}
-            </div>
+            </ul>
+            { openCreateTodo && <CreateTodo setOpenCreateTodo={setOpenCreateTodo}/> }
         </div>
     );
 
