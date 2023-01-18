@@ -5,7 +5,10 @@ import { Button } from '../Auth/styled';
 function ErrorModal({ error, setIsOpenErrorModal }: ErrorModalProps) {
     
     return (
-        <div className="modalBackGround">
+        <div className="modalBackGround" onClick={(e) => {
+            if (e.target === e.currentTarget)
+                setIsOpenErrorModal(false)
+        }}>
             <div className="modal">
                 <span>{error.message}</span>
                 <span>
