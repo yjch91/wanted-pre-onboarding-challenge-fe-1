@@ -1,7 +1,7 @@
 import React from 'react';
-import { ITitleInputProps } from '../../../types/todo';
+import { ITitleInput } from './type';
 
-function TitleInput({register, errors, watch}: ITitleInputProps) {
+function TitleInput({register, errors, watch}: ITitleInput) {
     return (
         <>
             <input {...register("title",  {

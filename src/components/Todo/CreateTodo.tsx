@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useCreateTodoMutation } from '../../hooks/mutation/todo';
-import { ITodoForm, ICreateTodoParams } from '../../types/todo';
-import { Button } from '../Auth/styled';
+import { useCreateTodoMutation } from './api/mutation';
+import { ICreateTodo, ITodoForm } from './type';
+import { Button } from '../Styled';
 import ContentInput from './Input/Content';
 import TitleInput from './Input/Title';
-import TodoCheckModal from './TodoCheckModal';
+import CheckModal from '../Modal/CheckModal';
+import ErrorModal from '../Modal/ErrorModal';
 
-interface CreateTodoProps {
-    setOpenCreateTodo: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function CreateTodo({setOpenCreateTodo}: CreateTodoProps) {
+function CreateTodo({setOpenCreateTodo}: ICreateTodo) {
     const {
         register,
         handleSubmit,
@@ -28,7 +25,14 @@ function CreateTodo({setOpenCreateTodo}: CreateTodoProps) {
     const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
     const [isCreate, setIsCreate] = useState(false);
 
-    const { mutate: createTodoMutate } = useCreateTodoMutation();
+    const { mutate: createTodoMutate, isError, error, isSuccess } = useCreateTodoMutation();
+
+    const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
+
+    useEffect(() => {
+        if (isError)
+            setIsOpenErrorModal(true);
+    }, [isError])
 
     const createTodoSubmit = () => setIsOpenCreateModal(true);
 
@@ -37,12 +41,14 @@ function CreateTodo({setOpenCreateTodo}: CreateTodoProps) {
         {
             setIsCreate(false);
             createTodoMutate({title: watch("title"), content: watch("content")});
-            resetField("title");
-            resetField("content");
-            setOpenCreateTodo(false);
+            if (isSuccess){
+                resetField("title");
+                resetField("content");
+                setOpenCreateTodo(false);
+            }
         }
     // eslint-disable-next-line
-    }, [isCreate])
+    }, [isCreate, isSuccess])
 
     return (
         <div className="modalBackGround">
@@ -53,7 +59,8 @@ function CreateTodo({setOpenCreateTodo}: CreateTodoProps) {
                 <Button type="submit">추가</Button>
                 <Button type="button" onClick={() => setOpenCreateTodo(false)}>취소</Button>
             </form>
-            { isOpenCreateModal && <TodoCheckModal setIsAgree={setIsCreate} setIsOpenModal={setIsOpenCreateModal}/> }
+            { isOpenCreateModal && <CheckModal setIsAgree={setIsCreate} setIsOpenModal={setIsOpenCreateModal} message={"정말 추가하시겠습니까?"}/> }
+            { isOpenErrorModal && error instanceof Error ? <ErrorModal error={error} setIsOpenErrorModal={setIsOpenErrorModal} /> : <></> }
         </div>
     );
 }

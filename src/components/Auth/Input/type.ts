@@ -1,22 +1,7 @@
 import { UseFormRegister, FieldErrorsImpl, UseFormWatch } from "react-hook-form";
+import { ISignForm } from "../../Page/Auth/type";
 
-export interface ILoginParams {
-    email: string;
-    password: string;
-}
-
-export interface ISignUpParams {
-    email: string;
-    password: string;
-}
-
-export interface ISignForm {
-    email: string;
-    password: string;
-    confirmPassword: string;
-}
-
-export interface IEmailInputProps {
+export interface IEmailInput {
     register: UseFormRegister<ISignForm>;
     errors: Partial<FieldErrorsImpl<{
         email: string;
@@ -24,7 +9,7 @@ export interface IEmailInputProps {
     }>>;
 }
 
-export interface IPasswordInputProps {
+export interface IPasswordInput {
     register: UseFormRegister<ISignForm>;
     errors: Partial<FieldErrorsImpl<{
         email: string;

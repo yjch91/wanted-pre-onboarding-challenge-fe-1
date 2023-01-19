@@ -1,7 +1,7 @@
 import React from 'react';
-import { IPasswordInputProps } from '../../../types/auth';
+import { IPasswordInput } from './type';
 
-function ConfirmPasswordInput({register, watch, errors}: IPasswordInputProps) {
+function ConfirmPasswordInput({register, watch, errors}: IPasswordInput) {
     if (watch === undefined)
         return <></>;
     return (

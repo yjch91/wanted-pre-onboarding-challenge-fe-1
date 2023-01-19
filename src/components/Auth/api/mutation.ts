@@ -1,7 +1,7 @@
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { CONTENT_TYPE, CONTENT_TYPE_HEADER, LOGIN_TOKEN } from "../../constants";
-import { ILoginParams, ISignUpParams } from "../../types/auth";
+import { CONTENT_TYPE, CONTENT_TYPE_HEADER, LOGIN_TOKEN } from "../../../constants";
+import { ILoginParams, ISignUpParams } from "./type";
 
 const signUpUser = ({email, password}: ISignUpParams) => {
     const res = fetch("http://localhost:8080/users/create", {

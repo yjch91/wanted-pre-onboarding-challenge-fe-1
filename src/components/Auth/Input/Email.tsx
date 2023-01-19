@@ -1,8 +1,8 @@
 import React from 'react';
 import { EMAIL_REGEXP } from '../../../constants';
-import { IEmailInputProps } from '../../../types/auth';
+import { IEmailInput } from './type';
 
-function EmailInput({register, errors}: IEmailInputProps) {
+function EmailInput({register, errors}: IEmailInput) {
     return (
         <>
             <input {...register("email", {
@@ -15,7 +15,7 @@ function EmailInput({register, errors}: IEmailInputProps) {
                     value: 30,
                     message: "이메일 30자이하 여야합니다."
                 }
-            })} className="inputSize fontSize-1_25 p-8 mb-4" type="text" placeholder='이메일'
+            })} className="signInputSize fontSize-1_25 p-8 mb-4" type="text" placeholder='이메일'
             />
             <p className="m-4 red">{errors.email?.message}</p>
         </>
