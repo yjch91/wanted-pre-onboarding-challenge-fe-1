@@ -1,6 +1,5 @@
 import { useQuery } from "react-query";
 import { AUTHORIZATION_HEADER, CONTENT_TYPE, CONTENT_TYPE_HEADER, LOGIN_TOKEN } from "../../../constants";
-import { ITodo } from "../type";
 import { ITodoById, ITodos } from "./type";
 
 const getTodos = () => {

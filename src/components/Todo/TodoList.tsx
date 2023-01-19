@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useGetTodosQuery } from './api/query';
 import { ITodo, ITodoList } from './type';
 import { Button } from '../Styled';
 import CreateTodo from './CreateTodo';

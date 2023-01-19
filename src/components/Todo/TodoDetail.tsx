@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUpdateTodoMutation } from './api/mutation';
 import { useGetTodoByIdQuery } from './api/query';
-import { ITodo, ITodoForm  } from './type';
+import { ITodoForm  } from './type';
 import { Button } from '../Styled';
 import ContentInput from './Input/Content';
 import TitleInput from './Input/Title';
