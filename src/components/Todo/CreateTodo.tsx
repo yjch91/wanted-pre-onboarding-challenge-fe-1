@@ -32,7 +32,12 @@ function CreateTodo({setOpenCreateTodo}: ICreateTodo) {
     useEffect(() => {
         if (isError)
             setIsOpenErrorModal(true);
-    }, [isError])
+        else if (isSuccess){
+            resetField("title");
+            resetField("content");
+            setOpenCreateTodo(false);
+        }
+    }, [isError, isSuccess])
 
     const createTodoSubmit = () => setIsOpenCreateModal(true);
 
@@ -41,12 +46,8 @@ function CreateTodo({setOpenCreateTodo}: ICreateTodo) {
         {
             setIsCreate(false);
             createTodoMutate({title: watch("title"), content: watch("content")});
-            if (isSuccess){
-                resetField("title");
-                resetField("content");
-                setOpenCreateTodo(false);
-            }
         }
+        
     // eslint-disable-next-line
     }, [isCreate, isSuccess])
 
