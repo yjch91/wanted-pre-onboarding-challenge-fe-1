@@ -13,10 +13,10 @@
 #### 실행 방법
 ***
 
-    [API 설치 후 실행]:(https://github.com/starkoora/wanted-pre-onboarding-challenge-fe-1-api).
+[API 링크]:[https://github.com/starkoora/wanted-pre-onboarding-challenge-fe-1-api)] 설치 후 실행
     npm install
     npm start
-    http://localhost:3000/ 접속 (기본포트: 3000)
+http://localhost:3000/ 접속 (기본포트: 3000)
 
 ***
 #### 구현요구사항
