@@ -13,7 +13,8 @@
 #### 실행 방법
 ***
 
-[API 링크](https://github.com/starkoora/wanted-pre-onboarding-challenge-fe-1-api) 설치 후 실행
+[API 링크](https://github.com/starkoora/wanted-pre-onboarding-challenge-fe-1-api) 링크에서 API도 받아서 실행해야 합니다.
+API 실행 후 아래 명령어로 실행
 
     npm install
     npm start
