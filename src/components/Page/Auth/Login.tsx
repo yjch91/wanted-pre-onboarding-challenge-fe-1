@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useLoginMutation } from '../../hooks/mutation/auth';
-import { ILoginParams, ISignForm } from '../../types/auth';
-import ErrorModal from '../Common/ErrorModal';
-import EmailInput from './Input/Email';
-import PasswordInput from './Input/Password';
-import { Button } from './styled';
+import { useLoginMutation } from '../../Auth/api/mutation';
+import { ISignForm } from './type';
+import ErrorModal from '../../Modal/ErrorModal';
+import EmailInput from '../../Auth/Input/Email';
+import PasswordInput from '../../Auth/Input/Password';
+import { Button } from '../../Styled';
 
 function Login() {
     const { 
         register, 
         handleSubmit,
+        watch,
         formState: { errors, isValid } 
     } = useForm<ISignForm>({
         defaultValues: {
@@ -22,13 +23,13 @@ function Login() {
     });
     const navigate = useNavigate();
     const { mutate: loginMutate, isLoading, isError, error } = useLoginMutation();
-    const loginSubmit = ({email, password}: ILoginParams) => {
-        loginMutate({email, password});
+    const loginSubmit = () => {
+        loginMutate({email: watch("email"), password: watch("password")});
     };
     const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
     useEffect(() => {
         if (isError)
-            setIsOpenErrorModal(isError);
+            setIsOpenErrorModal(true);
     }, [isError])
 
     return (

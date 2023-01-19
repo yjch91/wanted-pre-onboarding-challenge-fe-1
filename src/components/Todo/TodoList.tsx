@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { useGetTodosQuery } from '../../hooks/query/todo';
-import { ITodo, ITodos } from '../../types/todo';
-import { Button } from '../Auth/styled';
+import { useGetTodosQuery } from './api/query';
+import { ITodo, ITodoList } from './type';
+import { Button } from '../Styled';
 import CreateTodo from './CreateTodo';
 import TodoListItem from './TodoListItem';
 
-function TodoList() {    
-    const todos: ITodos = useGetTodosQuery();
-
-    const todoList = todos && todos.data.map((todo: ITodo, index: number) => {
+function TodoList({todos}: ITodoList) {    
+    const todoList = todos && todos.map((todo: ITodo, index: number) => {
         return (
             <TodoListItem todo={todo} key={index} />
         );
@@ -23,7 +21,7 @@ function TodoList() {
                 <Button onClick={() => setOpenCreateTodo(true)}>+</Button>
             </p>
             <ul className="todoList left m-4">
-                { todos && todos.data.length > 0 ? todoList : <div>todolist가 비어있습니다.</div> }
+                { todos && todos.length > 0 ? todoList : <div>todolist가 비어있습니다.</div> }
             </ul>
             { openCreateTodo && <CreateTodo setOpenCreateTodo={setOpenCreateTodo}/> }
         </div>

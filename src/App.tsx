@@ -4,6 +4,8 @@ import { BrowserRouter } from "react-router-dom";
 import Router from './components/Router';
 import "./styles/todoStyle.css";
 import "./styles/signStyle.css";
+import "./styles/common.css";
+import "./styles/modal.css";
 
 function App() {
 

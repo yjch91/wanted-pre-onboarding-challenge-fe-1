@@ -1,8 +1,8 @@
 import React from 'react';
-import { ErrorModalProps } from '../../types/modal';
-import { Button } from '../Auth/styled';
+import { IErrorModalProps } from './type';
+import { Button } from '../Styled';
 
-function ErrorModal({ error, setIsOpenErrorModal }: ErrorModalProps) {
+function ErrorModal({ error, setIsOpenErrorModal }: IErrorModalProps) {
     
     return (
         <div className="modalBackGround" onClick={(e) => {

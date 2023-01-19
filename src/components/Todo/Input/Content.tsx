@@ -1,8 +1,7 @@
-import { watch } from 'fs';
 import React from 'react';
-import { IContentInputProps } from '../../../types/todo';
+import { IContentInput } from './type';
 
-function ContentInput({register, watch}: IContentInputProps) {
+function ContentInput({register, watch}: IContentInput) {
     return (
         <>
             <textarea {...register("content")} className="inputContent" placeholder="content" maxLength={1000} />

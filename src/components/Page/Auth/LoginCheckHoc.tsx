@@ -1,6 +1,6 @@
 import React, { ComponentType } from 'react';
 import { Navigate } from 'react-router-dom';
-import { LOGIN_TOKEN } from '../../constants';
+import { LOGIN_TOKEN } from '../../../constants';
 
 
 function LoginCheckHoc(CheckComponent: ComponentType) {

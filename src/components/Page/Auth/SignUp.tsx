@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useSignUpMutation } from '../../hooks/mutation/auth';
-import { ISignForm, ISignUpParams } from '../../types/auth';
-import ErrorModal from '../Common/ErrorModal';
-import ConfirmPasswordInput from './Input/ConfirmPassword';
-import EmailInput from './Input/Email';
-import PasswordInput from './Input/Password';
-import { Button } from './styled';
+import { useSignUpMutation } from '../../Auth/api/mutation';
+import ErrorModal from '../../Modal/ErrorModal';
+import ConfirmPasswordInput from '../../Auth/Input/ConfirmPassword';
+import EmailInput from '../../Auth/Input/Email';
+import PasswordInput from '../../Auth/Input/Password';
+import { Button } from '../../Styled';
+import { ISignForm } from './type';
 
 function SignUp() {
     const { 
@@ -25,14 +25,14 @@ function SignUp() {
     });
     const navigate = useNavigate();
     const { mutate: signUpMutate, isLoading, isError, error } = useSignUpMutation();
-    const signUpSubmit = ({email, password}: ISignUpParams) => {
-        signUpMutate({email, password});
+    const signUpSubmit = () => {
+        signUpMutate({email: watch("email"), password: watch("password")});
     }
     const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
 
     useEffect(() => {
         if (isError)
-            setIsOpenErrorModal(isError);
+            setIsOpenErrorModal(true);
     }, [isError])
 
     return (

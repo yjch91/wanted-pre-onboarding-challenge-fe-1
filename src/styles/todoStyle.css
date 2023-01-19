@@ -64,74 +64,11 @@ textarea, input {
     text-align: center;
 }
 
-.todoBasis {
-    flex-basis: 50%;
-}
-
-.flex-col {
-    display: flex;
-    flex-direction: column;
-}
-
-
-.block {
-    display: block;
-}
-
-.left {
-    float: left;
-}
-
-.textleft {
-    text-align: left;
-}
-
-.textright {
-    text-align: right;
-}
-
-.flex {
-    display: flex;
-}
-
-.cursorPointer {
-    cursor: pointer;
-}
-
-.size {
-    width: 400px;
-}
-
 .todoTitle {
     font-size: 1.2rem;
     width: calc(100% - 60px);
     margin: 4px 8px;
     overflow: hidden;
-}
-
-.modal {
-    width: 300px;
-    height: 150px;
-    background-color: aquamarine;
-    left: 50%;
-    top: 50%;
-    position: relative;
-    transform : translate(-50%, -50%);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-radius: 0.5rem;
-    border: 2px solid black;
-}
-
-.modalBackGround {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background-color: rgba(245, 245, 220, 0.7);
 }
 
 .createTodo {
@@ -146,6 +83,14 @@ textarea, input {
     background-color: antiquewhite;
 }
 
-.flexBasis50 {
-    flex-basis: 50%;
+.mb-4 {
+    margin-bottom: 4px;
+}
+
+.m-4 {
+    margin: 4px;
+}
+
+.red {
+    color: red;
 }

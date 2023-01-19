@@ -1,10 +1,10 @@
 import React, { ComponentType } from 'react';
-import { Navigate } from 'react-router-dom';
-import { LOGIN_TOKEN } from '../../constants';
+import { Navigate, useParams } from 'react-router-dom';
+import { LOGIN_TOKEN } from '../../../constants';
+import { ITodo } from '../../Todo/type';
 
 
 function AuthCheckHoc(PageComponent: ComponentType) {
-
     return (() => {
         if (localStorage.getItem(LOGIN_TOKEN) === null)
             return <Navigate to="/auth/login" />;
