@@ -1,5 +1,7 @@
 # wanted-pre-onboarding-challenge-fe-1
 
+<img src="https://user-images.githubusercontent.com/72038224/213517200-3ba26b90-5c2e-4408-a457-56b818525831.mov">
+
 ### 1번째 리팩토링
 ***
 
