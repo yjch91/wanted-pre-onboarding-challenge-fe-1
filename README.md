@@ -70,7 +70,7 @@ http://localhost:3000/ > 접속 (기본포트: 3000)
 ├── components
 │   ├── Auth
 │   │   ├── Input
-│   │   │   ├── ConfirmPassword.tsx
+│   │   │   ├── ConfirmPassword.tsx  
 │   │   │   ├── Email.tsx
 │   │   │   ├── Password.tsx
 │   │   │   └── type.ts
@@ -121,4 +121,29 @@ http://localhost:3000/ > 접속 (기본포트: 3000)
     └── todoStyle.css
 ```
 
+src에서 components / constants / styles 폴더가 있습니다.   
+constants는 전체적으로 사용되는 상수가 들어있고 styles에는 css파일이 들어있습니다.   
+components 에서 Auth / Modal / Page / Router / Styled / Todo 폴더가 있습니다.    
 
+Styled 폴더는 styled-components를 이용하여 만든 컴포넌트가 있습니다.    
+
+Router 폴더는 Route를 사용한 컴포넌트가 들어있습니다.   
+
+Page 폴더에는 Router에서 path에 따라 달라질 때 사용되는 컴포넌트가 들어있는데 이번 과제에서는 Auth 페이지와 Home 페이지 뿐 없어서 Auth와 Home 폴더로 구성되어있습니다.   
+Auth와 Home 폴더 안에는 컴포넌트와 HOC가 있습니다.   
+
+Modal 폴더에는 과제에서 사용되는 Modal 컴포넌트가 들어있습니다.   
+
+Auth 폴더에는 Auth 페이지를 구현하는데 사용된 것들이 들어있습니다. input 폴더에는 input 컴포넌트들(이메일, 패스워드)이 들어있습니다. api 폴더에는 auth 페이지에서 사용된 react-query 훅이 들어있습니다.
+
+Todo 폴더도 Home 페이지에 Todo 부분을 구현하는데 사용된 것들이 들어있습니다. input 폴더에는 input 컴포넌트들(제목, 내용)이 들어있고 api 폴더에는 todo에 사용되는 react-query 훅이 들어있습니다.   
+
+Types 폴더를 따로 만들어서 모아두지 않고 파일에 필요한 type은 파일이 위치한 폴더 내에 type.ts로 만들었는데 모아두는게 좋은지 이런식으로 하는게 좋은지 아직 잘 모르겠습니다.   
+
+***
+#### 과제 진행 시 주안점 작성
+***
+
+변수명을 최대한 보기만해도 알아볼 수 있도록 했습니다.   
+폴더 구조를 하나에 모아 놓는 것보다 나눠 놓는게 편한 건 알겠는데 많이 나눠놓으니 여기저기 찾아다녀야 되서 불편할 때도 있어서 어떤식으로 나누는게 좋을지에 대해 생각해보았는데 좋은 것을 찾으면 계속 개선해봐야 할 것 같습니다.    
+최대한 반복되는 코드 줄이고 나눌 수 있는 건 나누려고 했습니다.   
