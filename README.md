@@ -122,6 +122,24 @@ http://localhost:3000/ > 접속 (기본포트: 3000)
     └── todoStyle.css
 ```
 
+```bash
+├── components
+│   ├── Auth
+│   │   ├── Input
+│   │   └── api
+│   ├── Modal
+│   ├── Page
+│   │   ├── Auth
+│   │   ├── Home
+│   ├── Router
+│   ├── Styled
+│   └── Todo
+│       ├── Input
+│       ├── api
+├── constants
+└── styles
+```
+
 src에서 components / constants / styles 폴더가 있습니다.   
 constants는 전체적으로 사용되는 상수가 들어있고 styles에는 css파일이 들어있습니다.   
 components 에서 Auth / Modal / Page / Router / Styled / Todo 폴더가 있습니다.    
