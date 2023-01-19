@@ -4,23 +4,21 @@
 
 <img src="https://user-images.githubusercontent.com/72038224/213517200-3ba26b90-5c2e-4408-a457-56b818525831.mov">
 
-<aside>
-auth/login <-> auth/signUp을 이동하면서 로그인, 회원가입을 할 수 있습니다.     
-로그인 토큰이 있는 상태에서 auth/login이나 auth/signUp 페이지로 접근 시 홈페이지로 이동됩니다.   
-/은 홈페이지로 로그인을 해야만 접근가능한 페이지입니다. 로그인 토큰없이 접근시 auth/login으로 이동됩니다.      
-홈페이지에서는 todoList와 todoDetail을 보여줍니다. todoList에서 원하는 todo를 클릭 시 todoDetail을 볼 수 있습니다.   
-</aside>
+    auth/login <-> auth/signUp을 이동하면서 로그인, 회원가입을 할 수 있습니다.     
+    로그인 토큰이 있는 상태에서 auth/login이나 auth/signUp 페이지로 접근 시 홈페이지로 이동됩니다.   
+    /은 홈페이지로 로그인을 해야만 접근가능한 페이지입니다. 로그인 토큰없이 접근시 auth/login으로 이동됩니다.      
+    홈페이지에서는 todoList와 todoDetail을 보여줍니다. todoList에서 원하는 todo를 클릭 시 todoDetail을 볼 수 있습니다.   
 
+***
 #### 실행 방법
 ***
 
-<aside>
-[API 설치 후 실행]:(https://github.com/starkoora/wanted-pre-onboarding-challenge-fe-1-api).
-npm install
-npm start
-http://localhost:3000/ 접속 (기본포트: 3000)
-</aside>
+    [API 설치 후 실행]:(https://github.com/starkoora/wanted-pre-onboarding-challenge-fe-1-api).
+    npm install
+    npm start
+    http://localhost:3000/ 접속 (기본포트: 3000)
 
+***
 #### 구현요구사항
 ***
 
@@ -44,6 +42,7 @@ http://localhost:3000/ 접속 (기본포트: 3000)
 - [ ]  폴더 구조 개선
 - [ ]  사용자에게 편리한 UI 생각하고 구현
 
+***
 #### 사용한 프레임워크 및 라이브러리
 ***
 
@@ -59,6 +58,7 @@ http://localhost:3000/ 접속 (기본포트: 3000)
 - styled-components 
     - 이것도 다른 사람이 사용한 것을 보고 사용해보았는데 스타일을 입힌 태그 컴포넌트를 만들 수 있는 라이브러리였다. button, div 등을 자기가 원하는 이름, 원하는 스타일로 만들어서 사용할 수 있었다. 반복되서 자주 쓰이는 것을 한번 만들어 놓고 쓰면 좋을 것 같아서 버튼을 만들어서 사용해보았다. div를 loginContainer, loginForm 이런 이름으로 반환해서 사용하는 분도 있었는데 이렇게 하면 그냥 div로 하고 className을 주는 것보다 알아보기 편할 것 같았다.   
 
+***
 #### 폴더 구조
 ***
 
