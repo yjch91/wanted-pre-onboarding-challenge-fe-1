@@ -39,7 +39,7 @@ function CreateTodo() {
 
     if (!state.openCreateTodo)
         return <></>;
-
+  
     return (
         <div className="modalBackGround">
             <form className="createTodo" onSubmit={handleSubmit(createTodoSubmit)}>
