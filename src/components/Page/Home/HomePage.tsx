@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useGetTodosQuery } from '../../Todo/api/query';
 import { Button } from '../../Styled';
 import TodoDetail from '../../Todo/TodoDetail';
 import TodoList from '../../Todo/TodoList';
 import ErrorModal from '../../Modal/ErrorModal';
+import { ITodos } from '../../Todo/api/type';
+import CheckModal from '../../Modal/CheckModal';
 
 function HomePage() {
     const navigate = useNavigate();
     const {id} = useParams();
-    const { data: todos, isError, error } = useGetTodosQuery();
+    const todos: ITodos = useGetTodosQuery();
+
     let isIdValid = false;
-
-    const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
-
-    useEffect(() => {
-        if (isError)
-            setIsOpenErrorModal(true);
-    }, [isError])
 
     if (id && todos) {
         todos.data.forEach((element) => {
@@ -45,7 +41,8 @@ function HomePage() {
                 { todos && <TodoList todos={todos.data} /> }
                 { isIdValid && <TodoDetail />}
             </div>
-            { isOpenErrorModal && error instanceof Error ? <ErrorModal error={error} setIsOpenErrorModal={setIsOpenErrorModal} /> : <></> }
+            <CheckModal />
+            <ErrorModal />
         </>
     );
 }

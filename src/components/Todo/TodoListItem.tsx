@@ -1,35 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRemoveTodoMutation } from './api/mutation';
 import { ITodoListItem } from './type';
 import { Button } from '../Styled';
-import CheckModal from '../Modal/CheckModal';
-import ErrorModal from '../Modal/ErrorModal';
+import { useDispatch } from 'react-redux';
+import { setTodoConfirm, setTodoRemoveData } from '../../redux/reducer/todoConfirm';
 
 function TodoListItem({todo}: ITodoListItem) {
     const queryClient = useQueryClient();
     const { id } = useParams();
     const navigate = useNavigate();
-    const [isOpenRemoveModal, setIsOpenRemoveModal] = useState(false);
-    const [isRemove, setIsRemove] = useState(false);
-    const { mutate: removeTodoMutate, isError, error } = useRemoveTodoMutation();
 
-    const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
-
-    useEffect(() => {
-        if (isError)
-            setIsOpenErrorModal(true);
-    }, [isError])
-
-    useEffect(() => {
-        if (isRemove === true)
-        {
-            setIsRemove(false);
-            removeTodoMutate(todo.id);
-        }
-    // eslint-disable-next-line
-    }, [isRemove])
+    const dispatch = useDispatch();
+    const removeTodoSubmit = () => {
+        dispatch(setTodoRemoveData(todo.id));
+        dispatch(setTodoConfirm("removeTodo", "정말 삭제하시겠습니까?", true));
+    }
 
     return (
         <li>
@@ -41,12 +27,8 @@ function TodoListItem({todo}: ITodoListItem) {
                             navigate(`/${todo.id}`);
                     }
                 }}>{todo.title}</p>
-                <Button onClick={(e) => {
-                    setIsOpenRemoveModal(true)}
-                }>x</Button>
+                <Button onClick={removeTodoSubmit}>x</Button>
             </div>
-            { isOpenRemoveModal && <CheckModal setIsAgree={setIsRemove} setIsOpenModal={setIsOpenRemoveModal} message={"정말 제거하시겠습니까?"}/> }
-            { isOpenErrorModal && error instanceof Error ? <ErrorModal error={error} setIsOpenErrorModal={setIsOpenErrorModal} /> : <></> }
         </li>
     );
 }

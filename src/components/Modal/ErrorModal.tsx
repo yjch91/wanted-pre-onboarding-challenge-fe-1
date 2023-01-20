@@ -1,18 +1,25 @@
 import React from 'react';
-import { IErrorModalProps } from './type';
 import { Button } from '../Styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/rootReducer';
+import { setError } from '../../redux/reducer/error';
 
-function ErrorModal({ error, setIsOpenErrorModal }: IErrorModalProps) {
-    
+function ErrorModal() {
+    const dispatch = useDispatch();
+    const state = useSelector((state: RootState) => state.todoErrorReducer);
+
+    if (!state.error_state)
+        return <></>;
+
     return (
         <div className="modalBackGround" onClick={(e) => {
             if (e.target === e.currentTarget)
-                setIsOpenErrorModal(false)
+                dispatch(setError("", false));
         }}>
             <div className="modal">
-                <span>{error.message}</span>
+                <span>{state.error_message}</span>
                 <span>
-                    <Button type="button" onClick={() => setIsOpenErrorModal(false)}>닫기</Button>
+                    <Button type="button" onClick={() => dispatch(setError("", false))}>닫기</Button>
                 </span>
             </div>
         </div>

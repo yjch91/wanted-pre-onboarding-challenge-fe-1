@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
+import { useDispatch } from "react-redux";
 import { AUTHORIZATION_HEADER, CONTENT_TYPE, CONTENT_TYPE_HEADER, LOGIN_TOKEN } from "../../../constants";
-import { ITodoById, ITodos } from "./type";
+import { setError } from "../../../redux/reducer/error";
 
 const getTodos = () => {
     const res = fetch("http://localhost:8080/todos", {
@@ -17,10 +18,17 @@ const getTodos = () => {
     return res;
 }
 
-export const useGetTodosQuery = (): { data: ITodos, isError: boolean, error: unknown } => {
-    const { data, isError, error } = useQuery('todos', getTodos);
+export const useGetTodosQuery = () => {
+    const dispatch = useDispatch();
 
-    return { data, isError, error };
+    const { data } = useQuery('todos', getTodos, {
+        onError: (error) => {
+            if (error instanceof Error)
+                dispatch(setError(error.message, true));
+        },
+    });
+
+    return data;
 }
 
 const getTodoById = (todoId: string | undefined) => {
@@ -41,7 +49,15 @@ const getTodoById = (todoId: string | undefined) => {
     return res;    
 }
 
-export const useGetTodoByIdQuery = (id: string | undefined): { data: ITodoById, isError: boolean, error: unknown }  => {
-    const { data, isError, error } = useQuery(["todosId", id], ({queryKey}) => getTodoById(queryKey[1]));
-    return { data, isError, error };
+export const useGetTodoByIdQuery = (id: string | undefined) => {
+    const dispatch = useDispatch();
+    
+    const { data } = useQuery(["todosId", id], ({queryKey}) => getTodoById(queryKey[1]), {
+        onError: (error) => {
+            if (error instanceof Error)
+                dispatch(setError(error.message, true));
+        }
+    });
+
+    return data;
 }
