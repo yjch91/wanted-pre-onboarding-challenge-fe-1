@@ -48,7 +48,7 @@ function SignUp() {
                     <Button type="button" onClick={() => navigate("/auth/login")}>취소</Button>
                 </div>
             </form>
-            { isOpenErrorModal && error instanceof Error ? <ErrorModal error={error} setIsOpenErrorModal={setIsOpenErrorModal} /> : <></> }
+            <ErrorModal />
         </div>
 
     );

@@ -6,7 +6,8 @@ import { Button } from '../Styled';
 import ContentInput from './Input/Content';
 import TitleInput from './Input/Title';
 import CheckModal from '../Modal/CheckModal';
-import ErrorModal from '../Modal/ErrorModal';
+import { useDispatch } from 'react-redux';
+import { setTodoConfirm, setTodoCreateData } from '../../redux/reducer/todoConfirm';
 
 function CreateTodo({setOpenCreateTodo}: ICreateTodo) {
     const {
@@ -21,34 +22,24 @@ function CreateTodo({setOpenCreateTodo}: ICreateTodo) {
             content: "",
         },
     });
+    
+    const [isSuccess, setIsSuccess] = useState(false);
 
-    const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
-    const [isCreate, setIsCreate] = useState(false);
-
-    const { mutate: createTodoMutate, isError, error, isSuccess } = useCreateTodoMutation();
-
-    const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
-
-    useEffect(() => {
-        if (isError)
-            setIsOpenErrorModal(true);
-    }, [isError])
-
-    const createTodoSubmit = () => setIsOpenCreateModal(true);
+    const dispatch = useDispatch();
+    const createTodoSubmit = () => {
+        dispatch(setTodoCreateData(watch("title"), watch("content")));
+        dispatch(setTodoConfirm("createTodo", "정말 추가하시겠습니까?", true));
+    }
 
     useEffect(() => {
-        if (isCreate === true)
-        {
-            setIsCreate(false);
-            createTodoMutate({title: watch("title"), content: watch("content")});
-            if (isSuccess){
-                resetField("title");
-                resetField("content");
-                setOpenCreateTodo(false);
-            }
+        if (isSuccess){
+            setIsSuccess(false);
+            resetField("title");
+            resetField("content");
+            setOpenCreateTodo(false);
         }
     // eslint-disable-next-line
-    }, [isCreate, isSuccess])
+    }, [isSuccess])
 
     return (
         <div className="modalBackGround">
@@ -59,8 +50,7 @@ function CreateTodo({setOpenCreateTodo}: ICreateTodo) {
                 <Button type="submit">추가</Button>
                 <Button type="button" onClick={() => setOpenCreateTodo(false)}>취소</Button>
             </form>
-            { isOpenCreateModal && <CheckModal setIsAgree={setIsCreate} setIsOpenModal={setIsOpenCreateModal} message={"정말 추가하시겠습니까?"}/> }
-            { isOpenErrorModal && error instanceof Error ? <ErrorModal error={error} setIsOpenErrorModal={setIsOpenErrorModal} /> : <></> }
+            <CheckModal command="createTodo" setIsSuccess={setIsSuccess} />
         </div>
     );
 }

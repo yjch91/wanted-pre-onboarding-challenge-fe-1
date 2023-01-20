@@ -46,7 +46,7 @@ function Login() {
                     }}>회원가입</Button>
                 </div>
             </form>
-            { isOpenErrorModal && error instanceof Error ? <ErrorModal error={error} setIsOpenErrorModal={setIsOpenErrorModal} /> : <></> }
+            <ErrorModal />
         </div>
     );
 }

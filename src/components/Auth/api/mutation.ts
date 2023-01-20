@@ -1,6 +1,8 @@
 import { useMutation } from "react-query";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { CONTENT_TYPE, CONTENT_TYPE_HEADER, LOGIN_TOKEN } from "../../../constants";
+import { setError } from "../../../redux/reducer/error";
 import { ILoginParams, ISignUpParams } from "./type";
 
 const signUpUser = ({email, password}: ISignUpParams) => {
@@ -23,10 +25,15 @@ const signUpUser = ({email, password}: ISignUpParams) => {
 
 export const useSignUpMutation = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     return useMutation(signUpUser, {
         onSuccess: () => {
             navigate("/auth/login");
+        },
+        onError: (error) => {
+            if (error instanceof Error)
+                dispatch(setError(error.message, true));
         },
     });
 };
@@ -51,11 +58,16 @@ const loginUser = ({email, password}: ILoginParams) => {
 
 export const useLoginMutation = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     return useMutation(loginUser, {
         onSuccess: (res) => {
             localStorage.setItem(LOGIN_TOKEN, res.token);
             navigate("/");
+        },
+        onError: (error) => {
+            if (error instanceof Error)
+                dispatch(setError(error.message, true));
         },
     });
 };

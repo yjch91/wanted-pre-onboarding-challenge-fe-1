@@ -6,17 +6,23 @@ import "./styles/todoStyle.css";
 import "./styles/signStyle.css";
 import "./styles/common.css";
 import "./styles/modal.css";
+import { createStore } from 'redux';
+import rootReducer from './redux/rootReducer';
+import { Provider } from 'react-redux';
 
 function App() {
 
   const queryClient = new QueryClient();
+  const store = createStore(rootReducer);
   
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
-    </QueryClientProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <Router />
+          </BrowserRouter>
+      </QueryClientProvider>
+    </Provider>
   );
 }
 

@@ -1,5 +1,7 @@
 import { useMutation, useQueryClient } from "react-query";
+import { useDispatch } from "react-redux";
 import { AUTHORIZATION_HEADER, CONTENT_TYPE, CONTENT_TYPE_HEADER, LOGIN_TOKEN } from "../../../constants";
+import { setError } from "../../../redux/reducer/error";
 import { ICreateTodoParams, IUpdateTodoParams } from "./type";
 
 const createTodo = ({title, content}: ICreateTodoParams) => {
@@ -23,10 +25,15 @@ const createTodo = ({title, content}: ICreateTodoParams) => {
 
 export const useCreateTodoMutation = () => {
     const queryClient = useQueryClient();
+    const dispatch = useDispatch();
 
     return useMutation(createTodo, {
         onSuccess: (res) => {
             queryClient.invalidateQueries("todos");
+        },
+        onError: (error) => {
+            if (error instanceof Error)
+                dispatch(setError(error.message, true));
         }
     });
 }
@@ -48,10 +55,15 @@ const removeTodo = (id: string) => {
 
 export const useRemoveTodoMutation = () => {
     const queryClient = useQueryClient();
+    const dispatch = useDispatch();
 
     return useMutation(removeTodo,{
         onSuccess: () => {
             queryClient.invalidateQueries("todos");
+        },
+        onError: (error) => {
+            if (error instanceof Error)
+                dispatch(setError(error.message, true));
         }
     });
 } 
@@ -77,10 +89,15 @@ const updateTodo = ({title, content, id}: IUpdateTodoParams) => {
 
 export const useUpdateTodoMutation = () => {
     const queryClient = useQueryClient();
+    const dispatch = useDispatch();
 
     return useMutation(updateTodo, {
         onSuccess: (res) => {
             queryClient.invalidateQueries("todos");
+        },
+        onError: (error) => {
+            if (error instanceof Error)
+                dispatch(setError(error.message, true));
         }
     });
 }
