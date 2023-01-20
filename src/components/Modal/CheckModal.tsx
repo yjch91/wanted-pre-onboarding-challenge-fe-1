@@ -1,27 +1,25 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTodoConfirm } from '../../redux/reducer/todoConfirm';
+import { setOpenCreateTodo, setTodoConfirm } from '../../redux/reducer/todoConfirm';
 import { RootState } from '../../redux/rootReducer';
 import { useCreateTodoMutation, useRemoveTodoMutation, useUpdateTodoMutation } from '../Todo/api/mutation';
 
-interface ICheckModal {
-    command: string,
-    setIsSuccess?: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function CheckModal({ command, setIsSuccess }: ICheckModal) {
+function CheckModal() {
     const dispatch = useDispatch();
     const state = useSelector((state: RootState) => state.todoConfirmReducer);
     const { mutate: createTodoMutate, isSuccess } = useCreateTodoMutation();
     const { mutate: removeTodoMutate } = useRemoveTodoMutation();
     const { mutate: updateTodoMutate } = useUpdateTodoMutation();
 
+    const command = ["createTodo", "removeTodo", "updateTodo"];
+    
     useEffect(() => {
-        if (state.confirm_command === "createTodo" && isSuccess && setIsSuccess)
-            setIsSuccess(true);
+        if (isSuccess)
+            dispatch(setOpenCreateTodo(false));
     }, [isSuccess])
 
-    if (!state.confirm_state || state.confirm_command !== command)
+
+    if (!state.confirm_state || command.indexOf(state.confirm_command) === -1)
         return <></>;
 
     function onClickAgree() {

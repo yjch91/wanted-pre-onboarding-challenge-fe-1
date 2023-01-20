@@ -41,6 +41,7 @@ function HomePage() {
                 { todos && <TodoList todos={todos.data} /> }
                 { isIdValid && <TodoDetail />}
             </div>
+            <CheckModal />
             <ErrorModal />
         </>
     );

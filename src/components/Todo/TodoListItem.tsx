@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRemoveTodoMutation } from './api/mutation';
 import { ITodoListItem } from './type';
 import { Button } from '../Styled';
-import CheckModal from '../Modal/CheckModal';
 import { useDispatch } from 'react-redux';
 import { setTodoConfirm, setTodoRemoveData } from '../../redux/reducer/todoConfirm';
 
@@ -16,7 +14,7 @@ function TodoListItem({todo}: ITodoListItem) {
     const dispatch = useDispatch();
     const removeTodoSubmit = () => {
         dispatch(setTodoRemoveData(todo.id));
-        dispatch(setTodoConfirm("removeTodo" + todo.id, "정말 삭제하시겠습니까?", true));
+        dispatch(setTodoConfirm("removeTodo", "정말 삭제하시겠습니까?", true));
     }
 
     return (
@@ -31,7 +29,6 @@ function TodoListItem({todo}: ITodoListItem) {
                 }}>{todo.title}</p>
                 <Button onClick={removeTodoSubmit}>x</Button>
             </div>
-            <CheckModal command={"removeTodo" + todo.id} />
         </li>
     );
 }

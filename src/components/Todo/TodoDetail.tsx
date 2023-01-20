@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useUpdateTodoMutation } from './api/mutation';
 import { useGetTodoByIdQuery } from './api/query';
 import { ITodoForm  } from './type';
 import { Button } from '../Styled';
 import ContentInput from './Input/Content';
 import TitleInput from './Input/Title';
-import CheckModal from '../Modal/CheckModal';
 import { ITodoById } from './api/type';
 import { useDispatch } from 'react-redux';
 import { setTodoConfirm, setTodoUpdateData } from '../../redux/reducer/todoConfirm';
@@ -57,7 +55,6 @@ function TodoDetail() {
                     <TitleInput register={register} watch={watch} errors={errors} />
                     <ContentInput register={register} watch={watch}/>
                 </div>
-                <CheckModal command="updateTodo" />
             </form>
         </div>
     );

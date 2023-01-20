@@ -18,7 +18,3 @@ export interface ITodoForm {
     title: string,
 	content: string,
 }
-
-export interface ICreateTodo {
-    setOpenCreateTodo: React.Dispatch<React.SetStateAction<boolean>>;
-}

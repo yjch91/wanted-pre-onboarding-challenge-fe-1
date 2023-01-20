@@ -1,4 +1,5 @@
 const SET_TODO_CONFIRM = 'confirm/SET_TODO_CONFIRM' as const;
+const SET_OPEN_CREATE_TODO = 'confirm/SET_OPEN_CREATE_TODO' as const;
 const SET_TODO_CREATE_DATA = 'confirm/SET_TODO_CREATE_DATA' as const;
 const SET_TODO_REMOVE_DATA = 'confirm/SET_TODO_REMOVE_DATA' as const;
 const SET_TODO_UPDATE_DATA = 'confirm/SET_TODO_UPDATE_DATA' as const;
@@ -10,6 +11,7 @@ interface confirmState {
     title: string,
     content: string,
     id: string,
+    openCreateTodo: boolean,
 };
 
 const initialState: confirmState = {
@@ -19,6 +21,7 @@ const initialState: confirmState = {
     title: "",
     content: "",
     id: "",
+    openCreateTodo: false,
 };
 
 export const setTodoConfirm = (command: string, message: string, state: boolean) => ({
@@ -27,6 +30,11 @@ export const setTodoConfirm = (command: string, message: string, state: boolean)
     message,
     state,
 });
+
+export const setOpenCreateTodo = (isOpen: boolean) => ({
+  type: SET_OPEN_CREATE_TODO,
+  isOpen,
+})
 
 export const setTodoCreateData = (title: string, content: string) => ({
     type: SET_TODO_CREATE_DATA,
@@ -51,6 +59,7 @@ type confirmAction =
   | ReturnType<typeof setTodoCreateData>
   | ReturnType<typeof setTodoRemoveData>
   | ReturnType<typeof setTodoUpdateData>
+  | ReturnType<typeof setOpenCreateTodo>
 
 export default function todoConfirmReducer(state = initialState, action: confirmAction) {
   switch (action.type) {
@@ -61,11 +70,16 @@ export default function todoConfirmReducer(state = initialState, action: confirm
         confirm_message: action.message,
         confirm_state: action.state
       };
+    case SET_OPEN_CREATE_TODO:
+      return {
+        ...state,
+        openCreateTodo: action.isOpen
+      };
     case SET_TODO_CREATE_DATA:
       return {
         ...state,
         title: action.title,
-        content: action.content,
+        content: action.content
       };
     case SET_TODO_REMOVE_DATA:
       return {

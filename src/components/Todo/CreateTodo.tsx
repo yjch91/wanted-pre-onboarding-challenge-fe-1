@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useCreateTodoMutation } from './api/mutation';
-import { ICreateTodo, ITodoForm } from './type';
+import { ITodoForm } from './type';
 import { Button } from '../Styled';
 import ContentInput from './Input/Content';
 import TitleInput from './Input/Title';
-import CheckModal from '../Modal/CheckModal';
-import { useDispatch } from 'react-redux';
-import { setTodoConfirm, setTodoCreateData } from '../../redux/reducer/todoConfirm';
+import { useDispatch, useSelector } from 'react-redux';
+import { setOpenCreateTodo, setTodoConfirm, setTodoCreateData } from '../../redux/reducer/todoConfirm';
+import { RootState } from '../../redux/rootReducer';
 
-function CreateTodo({setOpenCreateTodo}: ICreateTodo) {
+function CreateTodo() {
     const {
         register,
         handleSubmit,
@@ -23,23 +22,23 @@ function CreateTodo({setOpenCreateTodo}: ICreateTodo) {
         },
     });
     
-    const [isSuccess, setIsSuccess] = useState(false);
-
     const dispatch = useDispatch();
     const createTodoSubmit = () => {
         dispatch(setTodoCreateData(watch("title"), watch("content")));
         dispatch(setTodoConfirm("createTodo", "정말 추가하시겠습니까?", true));
     }
+    const state = useSelector((state: RootState) => state.todoConfirmReducer);
 
     useEffect(() => {
-        if (isSuccess){
-            setIsSuccess(false);
+        if (!state.openCreateTodo)
+        {
             resetField("title");
             resetField("content");
-            setOpenCreateTodo(false);
         }
-    // eslint-disable-next-line
-    }, [isSuccess])
+    }, [state.openCreateTodo])
+
+    if (!state.openCreateTodo)
+        return <></>;
 
     return (
         <div className="modalBackGround">
@@ -48,9 +47,8 @@ function CreateTodo({setOpenCreateTodo}: ICreateTodo) {
                 <TitleInput register={register} watch={watch} errors={errors} />
                 <ContentInput register={register} watch={watch}/>
                 <Button type="submit">추가</Button>
-                <Button type="button" onClick={() => setOpenCreateTodo(false)}>취소</Button>
+                <Button type="button" onClick={() => {dispatch(setOpenCreateTodo(false))}}>취소</Button>
             </form>
-            <CheckModal command="createTodo" setIsSuccess={setIsSuccess} />
         </div>
     );
 }
