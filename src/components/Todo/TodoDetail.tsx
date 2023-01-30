@@ -14,7 +14,7 @@ function TodoDetail() {
     const {
         register,
         handleSubmit,
-        watch,
+        getValues,
         setValue,
         formState: {errors}
     } = useForm<ITodoForm>({
@@ -30,7 +30,7 @@ function TodoDetail() {
     
     const dispatch = useDispatch();
     const updateTodoSubmit = () => {
-        dispatch(setTodoUpdateData(watch("title"), watch("content"), todoById.data.id));
+        dispatch(setTodoUpdateData(getValues("title"), getValues("content"), todoById.data.id));
         dispatch(setTodoConfirm("updateTodo", "정말 수정하시겠습니까?", true));
     }
 
@@ -52,8 +52,8 @@ function TodoDetail() {
                     <Button type="button" onClick={() => {navigate("/");}}>닫기</Button>
                 </p>
                 <div className="todoDetail left m-4">
-                    <TitleInput register={register} watch={watch} errors={errors} />
-                    <ContentInput register={register} watch={watch}/>
+                    <TitleInput register={register} getValues={getValues} errors={errors} />
+                    <ContentInput register={register} getValues={getValues}/>
                 </div>
             </form>
         </div>

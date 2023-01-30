@@ -11,7 +11,7 @@ function CreateTodo() {
     const {
         register,
         handleSubmit,
-        watch,
+        getValues,
         formState: {errors}
     } = useForm<ITodoForm>({
         defaultValues: {
@@ -23,7 +23,7 @@ function CreateTodo() {
     const dispatch = useDispatch();
 
     const createTodoSubmit = () => {
-        dispatch(setTodoCreateData(watch("title"), watch("content")));
+        dispatch(setTodoCreateData(getValues("title"), getValues("content")));
         dispatch(setTodoConfirm("createTodo", "정말 추가하시겠습니까?", true));
     }
     
@@ -31,8 +31,8 @@ function CreateTodo() {
         <div className="modalBackGround">
             <form className="createTodo" onSubmit={handleSubmit(createTodoSubmit)}>
                 <div>- CREATE TODO -</div>
-                <TitleInput register={register} watch={watch} errors={errors} />
-                <ContentInput register={register} watch={watch}/>
+                <TitleInput register={register} getValues={getValues} errors={errors} />
+                <ContentInput register={register} getValues={getValues}/>
                 <Button type="submit">추가</Button>
                 <Button type="button" onClick={() => {dispatch(setOpenCreateTodo(false))}}>취소</Button>
             </form>

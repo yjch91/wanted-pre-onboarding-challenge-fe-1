@@ -1,11 +1,11 @@
 import React from 'react';
 import { IContentInput } from './type';
 
-function ContentInput({register, watch}: IContentInput) {
+function ContentInput({register, getValues}: IContentInput) {
     return (
         <>
             <textarea {...register("content")} className="inputContent" placeholder="content" maxLength={1000} />
-            <p className="textright m-4">{watch("content").length}/1000</p>
+            <p className="textright m-4">{getValues("content").length}/1000</p>
         </>
     );
 }

@@ -12,7 +12,7 @@ function Login() {
     const { 
         register, 
         handleSubmit,
-        watch,
+        getValues,
         formState: { errors, isValid } 
     } = useForm<ISignForm>({
         defaultValues: {
@@ -24,7 +24,7 @@ function Login() {
     const navigate = useNavigate();
     const { mutate: loginMutate, isLoading } = useLoginMutation();
     const loginSubmit = () => {
-        loginMutate({email: watch("email"), password: watch("password")});
+        loginMutate({email: getValues("email"), password: getValues("password")});
     };
 
     return (

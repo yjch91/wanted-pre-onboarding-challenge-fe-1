@@ -1,4 +1,4 @@
-import { UseFormRegister, FieldErrorsImpl, UseFormWatch } from "react-hook-form";
+import { UseFormRegister, FieldErrorsImpl, UseFormGetValues } from "react-hook-form";
 import { ISignForm } from "../../Page/Auth/type";
 
 export interface IEmailInput {
@@ -16,5 +16,5 @@ export interface IPasswordInput {
         password: string;
         confirmPassword: string;
     }>>
-    watch?: UseFormWatch<ISignForm>;
+    getValues?: UseFormGetValues<ISignForm>;
 }

@@ -13,7 +13,7 @@ function SignUp() {
     const { 
         register, 
         handleSubmit,
-        watch,
+        getValues,
         formState: { errors, isValid }
     } = useForm<ISignForm>({ 
         defaultValues: {
@@ -26,7 +26,7 @@ function SignUp() {
     const navigate = useNavigate();
     const { mutate: signUpMutate, isLoading } = useSignUpMutation();
     const signUpSubmit = () => {
-        signUpMutate({email: watch("email"), password: watch("password")});
+        signUpMutate({email: getValues("email"), password: getValues("password")});
     }
 
     return (
@@ -36,7 +36,7 @@ function SignUp() {
                 <div className="fontSize-2 textCenter mb-4">회원가입</div>
                 <EmailInput register={register} errors={errors} />
                 <PasswordInput register={register} errors={errors} />
-                <ConfirmPasswordInput register={register} watch={watch} errors={errors} />
+                <ConfirmPasswordInput register={register} getValues={getValues} errors={errors} />
                 <div className="textCenter">
                     <Button disabled={!isValid} type="submit">가입</Button>
                     <Button type="button" onClick={() => navigate("/auth/login")}>취소</Button>
