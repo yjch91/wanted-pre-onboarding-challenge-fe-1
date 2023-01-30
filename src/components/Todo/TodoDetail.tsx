@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetTodoByIdQuery } from './api/query';
@@ -23,7 +23,7 @@ function TodoDetail() {
             content: "",
         }
     });
-
+    
     const navigate = useNavigate();
     const { id } = useParams();
     const todoById: ITodoById = useGetTodoByIdQuery(id);

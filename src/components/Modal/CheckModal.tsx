@@ -1,23 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setOpenCreateTodo, setTodoConfirm } from '../../redux/reducer/todoConfirm';
+import { setTodoConfirm } from '../../redux/reducer/todoConfirm';
 import { RootState } from '../../redux/rootReducer';
 import { useCreateTodoMutation, useRemoveTodoMutation, useUpdateTodoMutation } from '../Todo/api/mutation';
 
 function CheckModal() {
     const dispatch = useDispatch();
     const state = useSelector((state: RootState) => state.todoConfirmReducer);
-    const { mutate: createTodoMutate, isSuccess } = useCreateTodoMutation();
+    const { mutate: createTodoMutate } = useCreateTodoMutation();
     const { mutate: removeTodoMutate } = useRemoveTodoMutation();
     const { mutate: updateTodoMutate } = useUpdateTodoMutation();
 
     const command = ["createTodo", "removeTodo", "updateTodo"];
-    
-    useEffect(() => {
-        if (isSuccess)
-            dispatch(setOpenCreateTodo(false));
-    }, [isSuccess])
-
 
     if (!state.confirm_state || command.indexOf(state.confirm_command) === -1)
         return <></>;

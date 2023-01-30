@@ -39,7 +39,7 @@ function HomePage() {
             </div>
             <div className="flex">
                 { todos && <TodoList todos={todos.data} /> }
-                { isIdValid && <TodoDetail />}
+                { isIdValid && <TodoDetail /> }
             </div>
             <CheckModal />
             <ErrorModal />

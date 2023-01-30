@@ -1,5 +1,5 @@
 import React, { ComponentType } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { LOGIN_TOKEN } from '../../../constants';
 
 

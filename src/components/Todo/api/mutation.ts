@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
 import { AUTHORIZATION_HEADER, CONTENT_TYPE, CONTENT_TYPE_HEADER, LOGIN_TOKEN } from "../../../constants";
 import { setError } from "../../../redux/reducer/error";
+import { setOpenCreateTodo } from "../../../redux/reducer/todoConfirm";
 import { ICreateTodoParams, IUpdateTodoParams } from "./type";
 
 const createTodo = ({title, content}: ICreateTodoParams) => {
@@ -30,6 +31,7 @@ export const useCreateTodoMutation = () => {
     return useMutation(createTodo, {
         onSuccess: (res) => {
             queryClient.invalidateQueries("todos");
+            dispatch(setOpenCreateTodo(false));
         },
         onError: (error) => {
             if (error instanceof Error)

@@ -1,18 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { ITodoForm } from './type';
 import { Button } from '../Styled';
 import ContentInput from './Input/Content';
 import TitleInput from './Input/Title';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setOpenCreateTodo, setTodoConfirm, setTodoCreateData } from '../../redux/reducer/todoConfirm';
-import { RootState } from '../../redux/rootReducer';
 
 function CreateTodo() {
     const {
         register,
         handleSubmit,
-        resetField,
         watch,
         formState: {errors}
     } = useForm<ITodoForm>({
@@ -21,25 +19,14 @@ function CreateTodo() {
             content: "",
         },
     });
-    
+
     const dispatch = useDispatch();
+
     const createTodoSubmit = () => {
         dispatch(setTodoCreateData(watch("title"), watch("content")));
         dispatch(setTodoConfirm("createTodo", "정말 추가하시겠습니까?", true));
     }
-    const state = useSelector((state: RootState) => state.todoConfirmReducer);
-
-    useEffect(() => {
-        if (!state.openCreateTodo)
-        {
-            resetField("title");
-            resetField("content");
-        }
-    }, [state.openCreateTodo])
-
-    if (!state.openCreateTodo)
-        return <></>;
-  
+    
     return (
         <div className="modalBackGround">
             <form className="createTodo" onSubmit={handleSubmit(createTodoSubmit)}>

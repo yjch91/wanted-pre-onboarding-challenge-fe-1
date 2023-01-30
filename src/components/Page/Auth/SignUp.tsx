@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React  from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useSignUpMutation } from '../../Auth/api/mutation';
@@ -24,16 +24,10 @@ function SignUp() {
         mode: 'onChange'
     });
     const navigate = useNavigate();
-    const { mutate: signUpMutate, isLoading, isError, error } = useSignUpMutation();
+    const { mutate: signUpMutate, isLoading } = useSignUpMutation();
     const signUpSubmit = () => {
         signUpMutate({email: watch("email"), password: watch("password")});
     }
-    const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
-
-    useEffect(() => {
-        if (isError)
-            setIsOpenErrorModal(true);
-    }, [isError])
 
     return (
         isLoading ? <div>SingUp...</div> :
